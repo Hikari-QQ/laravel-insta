@@ -16,7 +16,7 @@ use App\Http\Controllers\Admin\UsersController;
 
 Auth::routes();
 //laravel-insta hikari hikari
-//keisuke sanjo
+//keisuke sanjo izamairu
 //shion sansenn 
 
 Route::group(['middleware' => 'auth'], function() {
