@@ -17,8 +17,7 @@ use App\Http\Controllers\Admin\UsersController;
 Auth::routes();
 //laravel-insta hikari hikari
 //keisuke sanjo izamairu
-//shion sansenn 
-
+//shion sansenn hai
 Route::group(['middleware' => 'auth'], function() {
     Route::get('/', [HomeController::class, 'index'])->name('index');
     Route::get('/people', [HomeController::class, 'search'])->name('search');
