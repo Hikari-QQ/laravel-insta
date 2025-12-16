@@ -15,7 +15,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Admin\UsersController;
 
 Auth::routes();
-//laravel-insta hikari
+//laravel-insta hikari hikari
 //keisuke sanjo
 //shion sansenn 
 
