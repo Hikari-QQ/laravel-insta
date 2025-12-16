@@ -16,6 +16,7 @@ use App\Http\Controllers\Admin\UsersController;
 
 Auth::routes();
 //laravel-insta hikari
+//keisuke sanjo
 
 Route::group(['middleware' => 'auth'], function() {
     Route::get('/', [HomeController::class, 'index'])->name('index');
