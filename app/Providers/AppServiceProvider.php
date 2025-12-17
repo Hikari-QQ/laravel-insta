@@ -35,20 +35,31 @@ class AppServiceProvider extends ServiceProvider
         // // ▼ DeepL翻訳機能 ▼
         // // A. サービスコンテナに DeepLTranslationService を登録
         // // これにより、アプリケーション全体でサービスのインスタンスを共有できます。
-        // $this->app->singleton(\App\Services\DeepLTranslationService::class, function ($app) {
-        //     return new \App\Services\DeepLTranslationService();
-        // });
+        $this->app->singleton(\App\Services\DeepLTranslationService::class, function ($app) {
+            return new \App\Services\DeepLTranslationService();
+        });
 
-        // // B. カスタムディレクティブ `@translate` を登録
-        // Blade::directive('translate', function ($expression) {
+        // B. カスタムディレクティブ `@translate` を登録
+        Blade::directive('translate', function ($expression) {
             
-        //     // 現在のロケールを取得。セッションになければ 'en' をデフォルトとする。
-        //     $locale = Session::get('locale', 'en'); 
+            // Session::get() の代わりに session() ヘルパーを使用
+            return "<?php 
+                // ★ 修正箇所： session() ヘルパーを使用 ★
+                \$currentLocale = session('locale', 'en'); 
+                \$lowerLocale = strtolower(\$currentLocale);
 
-        //     // DeepLの翻訳サービスを呼び出すPHPコードを生成して返す
-        //     return "<?php 
-        //         echo app(\App\Services\DeepLTranslationService::class)->translateText($expression, '$locale'); 
-        //     ?
-        // });
+                // 英語の場合は翻訳せず元のテキストを返す
+                if (\$lowerLocale === 'en' || \$lowerLocale === 'en-us' || \$lowerLocale === 'en-gb') {
+                    echo {$expression};
+                } else {
+                    try {
+                        \$service = app(\App\Services\DeepLTranslationService::class);
+                        echo \$service->translateText({$expression}, \$currentLocale);
+                    } catch (\Exception \$e) {
+                        echo {$expression};
+                    }
+                }
+            ?>";
+        });
     }
 }
