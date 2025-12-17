@@ -32,23 +32,23 @@ class AppServiceProvider extends ServiceProvider
             return $user->role_id === User::ADMIN_ROLE_ID;
         });
 
-        // ▼ DeepL翻訳機能 ▼
-        // A. サービスコンテナに DeepLTranslationService を登録
-        // これにより、アプリケーション全体でサービスのインスタンスを共有できます。
-        $this->app->singleton(\App\Services\DeepLTranslationService::class, function ($app) {
-            return new \App\Services\DeepLTranslationService();
-        });
+        // // ▼ DeepL翻訳機能 ▼
+        // // A. サービスコンテナに DeepLTranslationService を登録
+        // // これにより、アプリケーション全体でサービスのインスタンスを共有できます。
+        // $this->app->singleton(\App\Services\DeepLTranslationService::class, function ($app) {
+        //     return new \App\Services\DeepLTranslationService();
+        // });
 
-        // B. カスタムディレクティブ `@translate` を登録
-        Blade::directive('translate', function ($expression) {
+        // // B. カスタムディレクティブ `@translate` を登録
+        // Blade::directive('translate', function ($expression) {
             
-            // 現在のロケールを取得。セッションになければ 'en' をデフォルトとする。
-            $locale = Session::get('locale', 'en'); 
+        //     // 現在のロケールを取得。セッションになければ 'en' をデフォルトとする。
+        //     $locale = Session::get('locale', 'en'); 
 
-            // DeepLの翻訳サービスを呼び出すPHPコードを生成して返す
-            return "<?php 
-                echo app(\App\Services\DeepLTranslationService::class)->translateText($expression, '$locale'); 
-            ?>";
-        });
+        //     // DeepLの翻訳サービスを呼び出すPHPコードを生成して返す
+        //     return "<?php 
+        //         echo app(\App\Services\DeepLTranslationService::class)->translateText($expression, '$locale'); 
+        //     ?
+        // });
     }
 }
