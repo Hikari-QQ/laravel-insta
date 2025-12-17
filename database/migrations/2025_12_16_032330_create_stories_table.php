@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('stories', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('user_id');
-            $table->text('story_image');
+            $table->longText('story_image');
             $table->timestamp('expires_at');
             $table->timestamps();
         });
