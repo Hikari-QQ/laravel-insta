@@ -71,6 +71,7 @@ Route::group(['middleware' => 'auth'], function() {
     Route::delete('/follow/{user_id}/destroy', [FollowController::class, 'destroy'])->name('follow.destroy');
 
     #STORY
+    Route::get('/stories/create', [StoryController::class, 'create'])->name('stories.create');
     Route::post('/stories/store', [StoryController::class, 'store'])->name('stories.store');
-     
+    Route::get('/stories/{story}', [StoryController::class, 'show'])->name('stories.show');
 });
