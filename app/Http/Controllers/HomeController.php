@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Post;
+use App\Models\Story;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -17,11 +18,13 @@ class HomeController extends Controller
 
     private $post;
     private $user;
+    private $story;
 
-    public function __construct(Post $post, User $user)
+    public function __construct(Post $post, User $user,Story $story)
     {
         $this->post = $post;
         $this->user = $user; 
+        $this->story = $story;
     }
 
     /**
@@ -35,9 +38,11 @@ class HomeController extends Controller
         // return view('users.home')->with('all_posts', $all_posts);
         $home_posts = $this->getHomePosts();
         $suggested_users = $this->getSuggestedUsers();
+        $home_stories = $this->getStories();
         return view('users.home')
                 ->with('home_posts', $home_posts)
-                ->with('suggested_users', $suggested_users);
+                ->with('suggested_users', $suggested_users)
+                ->with('home_stories',$home_stories);
     }
 
     #Get the posts of the users that Auth user is following
@@ -51,6 +56,18 @@ class HomeController extends Controller
             }
         }
         return $home_posts;
+    } 
+    #Get the stories of the users that Auth user is following
+    public function getStories() {
+        $all_stories = $this->story->latest()->get();
+        $home_stories = [];
+
+        foreach($all_stories as $story) {
+            if($story->user->isFollowed() || $story->user->id === Auth::user()->id) {
+                $home_stories[] = $story;
+            }
+        }
+        return $home_stories;
     } 
 
     #Get the users that the Auth user is not following

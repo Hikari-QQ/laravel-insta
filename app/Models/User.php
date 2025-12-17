@@ -57,6 +57,11 @@ class User extends Authenticatable
        return $this->hasMany(Post::class);
     }
 
+    #To get all the stories of a user
+    public function stories(){
+        return $this->hasMany(Story::class);
+    }
+
     #To get all the followers of a user
     public function followers() {
         return $this->hasMany(Follow::class, 'following_id');
