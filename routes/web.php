@@ -13,6 +13,7 @@ use Illuminate\Support\Facades\Route;
 
 #Admin Controller
 use App\Http\Controllers\Admin\UsersController;
+use App\Http\Controllers\StoryController;
 
 Auth::routes();
 //laravel-insta hikari hikari
@@ -66,5 +67,8 @@ Route::group(['middleware' => 'auth'], function() {
     #FOLLOW
     Route::post('/follow/{user_id}/store', [FollowController::class, 'store'])->name('follow.store');
     Route::delete('/follow/{user_id}/destroy', [FollowController::class, 'destroy'])->name('follow.destroy');
+
+    #STORY
+    Route::post('/stories/store', [StoryController::class, 'store'])->name('stories.store');
     
 });
