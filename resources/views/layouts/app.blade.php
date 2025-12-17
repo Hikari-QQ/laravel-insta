@@ -225,7 +225,7 @@
                                 </button>
 
                                 {{-- ドロップダウンメニュー本体 --}}
-                                <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="languageDropdown">
+                                <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="languageDropdown" style="max-height: 80vh; overflow-y: auto;">
                                     {{-- 言語リストのループ処理 --}}
                                     @foreach($locales as $code => $name)
                                         @php

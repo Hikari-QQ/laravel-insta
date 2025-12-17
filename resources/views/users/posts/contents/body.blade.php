@@ -44,7 +44,7 @@
     <a href="{{ route('profile.show', $post->user->id) }}"
         class="text-decoration-none text-dark fw-bold">{{ $post->user->name }}</a>
     &nbsp;
-    <p class="d-inline fw-light">{{ $post->description }}</p>
+    <p class="d-inline fw-light">@translate($post->description)</p>
     <p class="text-uppercase text-muted xsmall">{{ date('M d, Y', strtotime($post->created_at)) }}</p>
     {{-- date
     and
