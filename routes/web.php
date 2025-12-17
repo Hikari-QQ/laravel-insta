@@ -70,5 +70,5 @@ Route::group(['middleware' => 'auth'], function() {
 
     #STORY
     Route::post('/stories/store', [StoryController::class, 'store'])->name('stories.store');
-    
+     
 });
