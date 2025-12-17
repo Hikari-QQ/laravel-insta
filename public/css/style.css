@@ -51,27 +51,3 @@
 .col-desc {
     font-size: 0.75rem;
 }
-
-/* ドロップダウンメニュー内の各言語リンクにホバーしたときのスタイル */
-.dropdown-menu .dropdown-item:hover {
-    /* 背景色を少し濃いグレーに変更（より目立たせる） */
-    background-color: #dee2e6; 
-    
-    /* テキストの色を濃くする */
-    color: #212529; 
-    
-    /* カーソルをポインターに変更（クリックできることを示唆） */
-    cursor: pointer;
-}
-
-/* 既に「アクティブ」（選択中）の言語項目にホバーしたときのスタイル */
-/* Bootstrap標準の青（primary）の背景を維持しつつ、文字色を白に維持 */
-.dropdown-menu .dropdown-item.active:hover {
-    background-color: #007bff; /* BootstrapのPrimaryカラー */
-    color: white; 
-}
-
-/* language-toggle が付いている要素のキャレットのみ非表示にする */
-.language-toggle.dropdown-toggle::after {
-    display: none !important;
-}
