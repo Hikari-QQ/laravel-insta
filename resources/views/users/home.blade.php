@@ -66,18 +66,22 @@
                 </div>
             </div>
             {{-- Suggestions --}}
-            @if ($suggested_users)
-                <div class="row">
-                    <div class="col-auto">
-                        <p class="fw-bold text-secondary">Suggestion For You</p>
-                    </div>
-                    <div class="col text-end">
-                        <a href="#" class="fw-bold text-dark text-decoration-none">See all</a>
-                    </div>
-                </div>
+          {{-- Suggestions --}}
+@if ($suggested_users)
+<div class="suggestion-box">
+    <div class="row mb-3">
+        <div class="col-auto">
+            <p class="fw-bold">Suggestion For You</p>
+        </div>
+        <div class="col text-end">
+            <a href="#" class="fw-bold text-decoration-none">See all</a>
+        </div>
+    </div>
 
-                @foreach ($suggested_users as $user)
-                    <div class="row align-items-center mb-3">
+    @foreach ($suggested_users as $user)
+        <div class="row align-items-center suggestion-item">
+
+                  
                         <div class="col-auto">
                             <a href="{{ route('profile.show', $user->id) }}">
                                 @if ($user->avatar)
