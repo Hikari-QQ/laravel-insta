@@ -209,7 +209,49 @@
                                 </a>
                             </li>
 
-                            <li class="nav-item mx-1">
+                            {{-- Language --}}
+                            @php
+                                $translationService = app(\App\Services\DeepLTranslationService::class);
+                                $locales = $translationService->getTargetLanguages();
+
+                                // 現在のロケールを取得 (SetLocaleミドルウェアのデフォルトは'en')
+                                $currentLocale = Session::get('locale', 'en'); 
+                            @endphp
+
+                            <li class="nav-item dropdown" title="Languages">
+                                <button type="button" id="languageDropdown" class="nav-link dropdown-toggle language-toggle"
+                                    data-bs-toggle="dropdown" aria-expanded="false" style="background: none; border: none;">
+                                    <i class="fa-solid fa-earth-americas text-dark icom-sm"></i>
+                                </button>
+
+                                {{-- ドロップダウンメニュー本体 --}}
+                                <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="languageDropdown">
+                                    {{-- 言語リストのループ処理 --}}
+                                    @foreach($locales as $code => $name)
+                                        @php
+                                            $linkCode = strtolower($code);
+                                            $isActive = (strtoupper($currentLocale) === $code);
+                                        @endphp
+
+                                        <li>
+                                            <a href="{{ route('locale.set', $linkCode) }}"
+                                                class="dropdown-item {{ $isActive ? 'active' : '' }}"
+                                                aria-current="{{ $isActive ? 'true' : 'false' }}">{{ $name }}
+                                            </a>
+                                        </li>
+                                    @endforeach
+                                </ul>
+                            </li>
+
+                            {{-- Search --}}
+                            <li class="nav-item" title="Search">
+                                <a href="{{ route('index') }}" class="nav-link">
+                                    <i class="fa-solid fa-magnifying-glass text-dark icom-sm"></i>
+                                </a>
+                            </li>
+
+                            {{-- Create Post --}}
+                            <li class="nav-item" title="Create Post">
                                 <a href="{{ route('post.create') }}" class="nav-link">
                                     <i class="fa-solid fa-circle-plus"></i>
                                 </a>
@@ -224,21 +266,22 @@
                                     @endif
                                 </button>
 
-                                <div class="dropdown-menu dropdown-menu-end">
-                                    @can('admin')
+                                <div class="dropdown-menu dropdown-menu-end" aria-labelledby="account-dropdown">
+                                    {{-- [SOON] Admin Controls --}}
+                                    @can('admin') {{-- @can - other way -- @if(Gate:allows('addmin)) --}}
                                         <a href="{{ route('admin.users') }}" class="dropdown-item">
                                             <i class="fa-solid fa-user-gear"></i> Admin
                                         </a>
+
                                         <hr class="dropdown-divider">
                                     @endcan
 
                                     <a href="{{ route('profile.show', Auth::user()->id) }}" class="dropdown-item">
                                         <i class="fa-solid fa-circle-user"></i> Profile
                                     </a>
-
-                                    <a class="dropdown-item" href="{{ route('logout') }}"
-                                        onclick="event.preventDefault();document.getElementById('logout-form').submit();">
-                                        <i class="fa-solid fa-right-from-bracket"></i> Logout
+                                    <a class="dropdown-item" href="{{ route('logout') }}" 
+                                        onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
+                                        <i class="fa-solid fa-right-from-bracket"></i> {{ __('Logout') }}
                                     </a>
 
                                     <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
