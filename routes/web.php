@@ -22,6 +22,8 @@ Auth::routes();
 Route::group(['middleware' => 'auth'], function() {
     Route::get('/', [HomeController::class, 'index'])->name('index');
     Route::get('/people', [HomeController::class, 'search'])->name('search');
+    // {locale} の部分に、ユーザーが選択した言語コード (ja, en, frなど) が入ります。
+    Route::get('locale/{locale}', [App\Http\Controllers\LocaleController::class, 'setLocale'])->name('locale.set');
 
     Route::group(['prefix' => 'admin', 'as' => 'admin.', 'middleware' => 'admin'], function() {
         //USER
