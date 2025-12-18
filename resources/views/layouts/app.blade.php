@@ -59,18 +59,13 @@
             z-index: 10;
         }
 
-        h1,
-        h2,
-        h3,
-        .navbar-brand,
-        .fw-bold {
+        h1, h2, h3, .navbar-brand, .fw-bold {
             color: #5f5f5f;
             font-weight: 500;
             letter-spacing: 0.08em;
         }
 
-        .text-muted,
-        .xsmall {
+        .text-muted, .xsmall {
             color: var(--piki-gray-soft) !important;
             font-size: 0.8rem;
         }
@@ -92,8 +87,7 @@
             padding: 6px 12px;
         }
 
-        button,
-        .btn {
+        button, .btn {
             color: #6f6f6f;
         }
 
@@ -158,6 +152,17 @@
             color: var(--piki-gray-main);
         }
 
+        .add-story-link {
+            color: var(--piki-icon-purple) !important;
+            font-weight: bold;
+            font-size: 0.9rem;
+        }
+
+        .story-heart {
+            color: var(--piki-logo-cloud);
+            font-weight: bold;
+        }
+
         .heart {
             background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 640 640'%3E%3Cpath fill='%23C2E2FA' d='M442.9 144C415.6 144 389.9 157.1 373.9 179.2L339.5 226.8C335 233 327.8 236.7 320.1 236.7C312.4 236.7 305.2 233 300.7 226.8L266.3 179.2C250.3 157.1 224.6 144 197.3 144C150.3 144 112.2 182.1 112.2 229.1C112.2 279 144.2 327.5 180.3 371.4C221.4 421.4 271.7 465.4 306.2 491.7C309.4 494.1 314.1 495.9 320.2 495.9C326.3 495.9 331 494.1 334.2 491.7C368.7 465.4 419 421.3 460.1 371.4C496.3 327.5 528.2 279 528.2 229.1C528.2 182.1 490.1 144 443.1 144z'/%3E%3C/svg%3E");
         }
@@ -167,27 +172,16 @@
         }
 
         @keyframes float {
-            0% {
-                transform: translateY(0) rotate(0deg) scale(0.8);
-                opacity: 0.8;
-            }
-
-            50% {
-                opacity: 1;
-            }
-
-            100% {
-                transform: translateY(-100vh) rotate(360deg) scale(1.2);
-                opacity: 0;
-            }
+            0% { transform: translateY(0) rotate(0deg) scale(0.8); opacity: 0.8; }
+            50% { opacity: 1; }
+            100% { transform: translateY(-100vh) rotate(360deg) scale(1.2); opacity: 0; }
         }
     </style>
 </head>
 
 <body class="background-random">
     <div id="app">
-
-        <nav class="navbar navbar-expand-md shadow-sm fixed-top" style="background-color: var(--piki-bg-header);">
+        <nav class="navbar navbar-expand-md shadow-sm fixed-top">
             <div class="container">
                 <a class="navbar-brand" href="{{ url('/') }}">
                     <h1 class="mb-0 d-flex align-items-center">
@@ -201,8 +195,7 @@
                     </h1>
                 </a>
 
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
-                    data-bs-target="#navbarSupportedContent">
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent">
                     <span class="navbar-toggler-icon"></span>
                 </button>
 
@@ -218,6 +211,31 @@
                                 </a>
                             </li>
 
+                            <li class="nav-item" title="Create Post">
+                                <a href="{{ route('post.create') }}" class="nav-link">
+                                    <i class="fa-solid fa-circle-plus"></i>
+                                </a>
+                            </li>
+
+                            <li class="nav-item">
+                                <a href="{{ route('stories.create') }}" class="nav-link add-story-link">
+                                    <span class="story-heart">♡</span>Add Story<span class="story-heart">♡</span>
+                                </a>
+                            </li>
+
+                            @if (!request()->is('admin/*'))
+                                <li class="nav-item" title="Search" id="search-li">
+                                    <button type="button" class="nav-link" id="search-icon-link">
+                                        <i class="fa-solid fa-magnifying-glass"></i>
+                                    </button>
+                                    <div id="search-input-container">
+                                        <form action="{{ route('search') }}" method="get">
+                                            <input type="search" name="search" placeholder="Search user..." class="form-control form-control-sm">
+                                        </form>
+                                    </div>
+                                </li>
+                            @endif
+
                             @php
                                 $translationService = app(\App\Services\DeepLTranslationService::class);
                                 $locales = $translationService->getTargetLanguages();
@@ -225,79 +243,40 @@
                             @endphp
 
                             <li class="nav-item dropdown" title="Languages">
-                                <button type="button" id="languageDropdown" class="nav-link dropdown-toggle language-toggle"
-                                    data-bs-toggle="dropdown" aria-expanded="false" style="background: none; border: none;">
+                                <button type="button" id="languageDropdown" class="nav-link dropdown-toggle" data-bs-toggle="dropdown" style="background: none; border: none;">
                                     <i class="fa-solid fa-earth-americas"></i>
                                 </button>
-
-                                <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="languageDropdown"
-                                    style="max-height: 70vh; overflow-y: auto;">
+                                <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="languageDropdown" style="max-height: 70vh; overflow-y: auto;">
                                     @foreach($locales as $code => $name)
                                         @php
                                             $linkCode = strtolower($code);
                                             $isActive = (strtoupper($currentLocale) === $code);
                                         @endphp
-
                                         <li>
-                                            <a href="{{ route('locale.set', $linkCode) }}"
-                                                class="dropdown-item {{ $isActive ? 'active' : '' }}"
-                                                aria-current="{{ $isActive ? 'true' : 'false' }}">{{ $name }}
-                                            </a>
+                                            <a href="{{ route('locale.set', $linkCode) }}" class="dropdown-item {{ $isActive ? 'active' : '' }}">{{ $name }}</a>
                                         </li>
                                     @endforeach
                                 </ul>
                             </li>
 
-                            @auth
-                                @if (!request()->is('admin/*'))
-                                    <li class="nav-item" title="Search" id="search-li">
-                                        <button type="button" class="nav-link" id="search-icon-link">
-                                            <i class="fa-solid fa-magnifying-glass"></i>
-                                        </button>
-
-                                        <div id="search-input-container">
-                                            <form action="{{ route('search') }}" method="get">
-                                                <input type="search" name="search" placeholder="Search user..." class="form-control form-control-sm">
-                                            </form>
-                                        </div>
-                                    </li>
-                                @endif
-                            @endauth
-
-                            <li class="nav-item" title="Create Post">
-                                <a href="{{ route('post.create') }}" class="nav-link">
-                                    <i class="fa-solid fa-circle-plus"></i>
-                                </a>
-                            </li>
-
                             <li class="nav-item dropdown">
                                 <button class="btn shadow-none nav-link" data-bs-toggle="dropdown">
                                     @if (Auth::user()->avatar)
-                                        <img src="{{ Auth::user()->avatar }}" class="rounded-circle avatar-sm">
+                                        <img src="{{ Auth::user()->avatar }}" class="rounded-circle avatar-sm" style="width:30px; height:30px; object-fit:cover;">
                                     @else
-                                        <i class="fa-solid fa-circle-user"></i>
+                                        <i class="fa-solid fa-circle-user" style="color: #ff85a2;"></i>
                                     @endif
                                 </button>
-
-                                <div class="dropdown-menu dropdown-menu-end" aria-labelledby="account-dropdown">
+                                <div class="dropdown-menu dropdown-menu-end">
                                     @can('admin')
-                                        <a href="{{ route('admin.users') }}" class="dropdown-item">
-                                            <i class="fa-solid fa-user-gear"></i> Admin
-                                        </a>
+                                        <a href="{{ route('admin.users') }}" class="dropdown-item"><i class="fa-solid fa-user-gear"></i> Admin</a>
                                         <hr class="dropdown-divider">
                                     @endcan
-
-                                    <a href="{{ route('profile.show', Auth::user()->id) }}" class="dropdown-item">
-                                        <i class="fa-solid fa-circle-user"></i> Profile
-                                    </a>
-                                    <a class="dropdown-item" href="{{ route('logout') }}" 
-                                        onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
+                                    <a href="{{ route('profile.show', Auth::user()->id) }}" class="dropdown-item"><i class="fa-solid fa-circle-user"></i> Profile</a>
+                                    <a class="dropdown-item" href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
                                         <i class="fa-solid fa-right-from-bracket"></i> {{ __('Logout') }}
                                     </a>
-
-                                    <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
-                                        @csrf
-                                    </form>
+                                    <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">@csrf</form>
                                 </div>
                             </li>
                         @endguest
@@ -318,7 +297,6 @@
                             </div>
                         </div>
                     @endif
-
                     <div class="col-9">
                         @yield('content')
                     </div>
@@ -355,23 +333,16 @@
                 searchIconLink.addEventListener('click', function (e) {
                     e.stopPropagation(); 
                     searchInputContainer.classList.toggle('search-active');
-
                     if (searchInputContainer.classList.contains('search-active')) {
                         searchInputContainer.querySelector('input').focus();
                     }
                 });
-
-                searchInputContainer.addEventListener('click', function (e) {
-                    e.stopPropagation();
-                });
-
+                searchInputContainer.addEventListener('click', function (e) { e.stopPropagation(); });
                 document.addEventListener('click', function () {
                     searchInputContainer.classList.remove('search-active');
                 });
             }
         });
     </script>
-
 </body>
-
 </html>

@@ -118,9 +118,7 @@
     }
 </style>
 @section('content')
-    <div class="row">
-        <a href="{{ route('stories.create') }}" class="btn add-story-btn">♡Add Story♡</a>
-    </div>
+    
     {{-- stories --}}
     <div class="story-bar d-flex overflow-auto p-2">
         @foreach ($home_stories as $story)
