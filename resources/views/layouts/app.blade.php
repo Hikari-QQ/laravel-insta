@@ -41,16 +41,16 @@
             overflow-x: hidden;
         }
 
-  .animated-item {
-    position: fixed;
-    top: 100vh;
-    background-size: contain;
-    background-repeat: no-repeat;
-    animation: float var(--duration) linear infinite;
-    opacity: 0.8;
-    pointer-events: none;
-    z-index: -1; /* ← これだけ変更 */
-}
+        .animated-item {
+            position: fixed;
+            top: 100vh;
+            background-size: contain;
+            background-repeat: no-repeat;
+            animation: float var(--duration) linear infinite;
+            opacity: 0.8;
+            pointer-events: none;
+            z-index: -1; /* ← これだけ変更 */
+        }
 
         .container main .col-9 {
             position: relative;
@@ -187,17 +187,6 @@
                 </button>
 
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                    @auth
-                        @if (!request()->is('admin/*'))
-                            <ul class="navbar-nav ms-auto me-4">
-                                <form action="{{ route('search') }}" style="width:260px;">
-                                    <input type="search" name="search" class="form-control form-control-sm"
-                                        placeholder="Search...">
-                                </form>
-                            </ul>
-                        @endif
-                    @endauth
-
                     <ul class="navbar-nav ms-auto align-items-center">
                         @guest
                             <li class="nav-item"><a class="nav-link" href="{{ route('login') }}">Login</a></li>
@@ -213,8 +202,6 @@
                             @php
                                 $translationService = app(\App\Services\DeepLTranslationService::class);
                                 $locales = $translationService->getTargetLanguages();
-
-                                // 現在のロケールを取得 (SetLocaleミドルウェアのデフォルトは'en')
                                 $currentLocale = Session::get('locale', 'en'); 
                             @endphp
 
@@ -224,8 +211,8 @@
                                     <i class="fa-solid fa-earth-americas text-dark icom-sm"></i>
                                 </button>
 
-                                {{-- ドロップダウンメニュー本体 --}}
-                                <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="languageDropdown" style="max-height: 80vh; overflow-y: auto;">
+                                <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="languageDropdown"
+                                    style="max-height: 70vh; overflow-y: auto;">
                                     {{-- 言語リストのループ処理 --}}
                                     @foreach($locales as $code => $name)
                                         @php
@@ -244,11 +231,21 @@
                             </li>
 
                             {{-- Search --}}
-                            <li class="nav-item" title="Search">
-                                <a href="{{ route('index') }}" class="nav-link">
-                                    <i class="fa-solid fa-magnifying-glass text-dark icom-sm"></i>
-                                </a>
-                            </li>
+                            @auth
+                                @if (!request()->is('admin/*'))
+                                    <li class="nav-item" title="Search" id="search-li">
+                                        <button type="button" class="nav-link" id="search-icon-link">
+                                            <i class="fa-solid fa-magnifying-glass text-dark icom-sm"></i>
+                                        </button>
+
+                                        <div id="search-input-container">
+                                            <form action="{{ route('search') }}" method="get">
+                                                <input type="search" name="search" placeholder="Search user..." class="form-control form-control-sm">
+                                            </form>
+                                        </div>
+                                    </li>
+                                @endif
+                            @endauth
 
                             {{-- Create Post --}}
                             <li class="nav-item" title="Create Post">
@@ -330,13 +327,36 @@
                 const item = document.createElement("div");
                 item.classList.add("animated-item", itemClasses[Math.floor(Math.random() * itemClasses.length)]);
                 item.style.left = Math.random() * 100 + "vw";
-                item.style.setProperty('--duration', (minDuration + Math.random() * (maxDuration - minDuration)) +
-                    "s");
+                item.style.setProperty('--duration', (minDuration + Math.random() * (maxDuration - minDuration)) + "s");
                 const size = minSize + Math.random() * (maxSize - minSize);
                 item.style.width = size + "px";
                 item.style.height = size + "px";
                 item.style.animationDelay = Math.random() * maxDuration + "s";
                 document.body.appendChild(item);
+            }
+
+            const searchIconLink = document.getElementById('search-icon-link');
+            const searchInputContainer = document.getElementById('search-input-container');
+
+            if (searchIconLink && searchInputContainer) {
+                searchIconLink.addEventListener('click', function (e) {
+                    e.stopPropagation(); 
+                    searchInputContainer.classList.toggle('search-active');
+
+                    if (searchInputContainer.classList.contains('search-active')) {
+                        searchInputContainer.querySelector('input').focus();
+                    }
+                });
+
+                // 検索ボックス内をクリックした時に閉じないようにする
+                searchInputContainer.addEventListener('click', function (e) {
+                    e.stopPropagation();
+                });
+
+                // 画面のどこかをクリックしたら閉じる
+                document.addEventListener('click', function () {
+                    searchInputContainer.classList.remove('search-active');
+                });
             }
         });
     </script>
