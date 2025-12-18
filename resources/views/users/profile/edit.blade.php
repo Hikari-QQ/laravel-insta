@@ -3,6 +3,17 @@
 @section('title', 'Edit Profile')
  
 @section('content')
+<style>
+    .avatar-lg {
+        width: 150px;
+        height: 150px;
+    }
+
+    .object-fit-cover {
+        object-fit: cover;
+    }
+</style>
+
     <div class="row justify-content-center">
         <div class="col-8">
             <form action="{{ route('profile.update') }}" method="post" class="bg-white shadow rounded-3 p-5" enctype="multipart/form-data">
@@ -14,7 +25,7 @@
                 <div class="row mb-3">
                     <div class="col-4">
                         @if ($user->avatar)
-                            <img src="{{ $user->avatar }}" alt="{{ $user->name }}" class="img-thumbnail rounded-circle d-block mx-muto avatar-lg">
+                            <img src="{{ $user->avatar }}" alt="{{ $user->name }}" class="img-thumbnail rounded-circle d-block mx-auto avatar-lg object-fit-cover">
                         @else
                             <i class="fa-solid fa-circle-user text-secondary d-block text-center icon-lg"></i>
                         @endif
