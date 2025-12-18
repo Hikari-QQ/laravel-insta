@@ -26,7 +26,7 @@ class StoryController extends Controller
 
     $this->story->user_id = Auth::user()->id;
     $this->story->story_image = 'data:image/' . $request->story_image->extension() . ';base64,' . base64_encode(file_get_contents($request->story_image));
-    $this->story->expires_at = now()->addMinutes(5);
+    $this->story->expires_at = now()->addMinutes(1);
     $this->story->save();
 
     return redirect()->route('index');
@@ -36,9 +36,10 @@ class StoryController extends Controller
         $story = $this->story->findOrFail($id);
         
         // nextStory
-        $nextStory = Story::where('id', '>', $story->id)
-            ->orderBy('id')
-            ->first();
+        $nextStory = Story::where('expires_at', '>', now())
+        ->where('id', '>', $story->id)
+        ->orderBy('id')
+        ->first();
 
 
         return view('users.stories.index')

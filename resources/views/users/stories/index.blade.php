@@ -15,11 +15,13 @@
         @endif
 
         <div class="text-center">
-            <img id="story-image" src="{{ $story->story_image }}" class="img-fluid rounded" style="max-height:80vh;">
+            <img id="story-image" src="{{ $story->story_image }}" class="img-fluid rounded" style="height:75vh;">
 
             <p class="mt-2">{{ $story->user->name }}</p>
         </div>
     </div>
+
+    @include('users.stories.modals.delete')
 
     <script>
         const nextStoryUrl = @json($nextStory ? route('stories.show', $nextStory->id) : route('index'));
