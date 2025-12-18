@@ -1,7 +1,20 @@
+<style>
+    .avatar-lg {
+        width: 150px;
+        height: 150px;
+    }
+
+    .object-fit-cover {
+        object-fit: cover;
+    }
+</style>
+
 <div class="row">
     <div class="col-4">
         @if ($user->avatar)
-            <img src="{{ $user->avatar }}" alt="{{ $user->name }}" class="img-thumbnail rounded-circle d-block mx-auto avatar-lg">
+        <a href="#">
+            <img src="{{ $user->avatar }}" alt="{{ $user->name }}" class="img-thumbnail rounded-circle d-block mx-auto avatar-lg object-fit-cover">
+        </a>
         @else
             <i class="fa-solid fa-circle-user text-secondary d-block text-center icon-lg"></i>
         @endif
@@ -13,7 +26,8 @@
             </div>
             <div class="col-auto p-2">
                 @if (Auth::user()->id === $user->id)
-                    <a href="{{ route('profile.edit') }}" class="btn btn-outline-secondary btn-sm fw-bold">Edit Profile</a>
+                    <a href="{{ route('profile.edit') }}" class="btn btn-outline-secondary btn-sm fw-bold">Edit
+                        Profile</a>
                 @else
                     @if ($user->isFollowed())
                         <form action="{{ route('follow.destroy', $user->id) }}" method="post">
@@ -33,7 +47,7 @@
         <div class="row mb-3">
             <div class="col-auto">
                 <a href="{{ route('profile.show', $user->id) }}" class="text-decoration-none text-dark">
-                    <strong>{{ $user->posts->count() }}</strong> 
+                    <strong>{{ $user->posts->count() }}</strong>
                     @if ($user->posts->count() == 1)
                         post
                     @else
