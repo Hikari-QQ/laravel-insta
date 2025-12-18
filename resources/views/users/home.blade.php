@@ -7,7 +7,7 @@
     .suggestion-box {
         background-color: #FFFFFF;
         border-radius: 20px;
-        padding: 20px 18px;
+        padding: 10px 9px;
         box-shadow: 0 6px 16px rgba(0, 0, 0, 0.05);
     }
 
@@ -170,9 +170,10 @@
             @if ($suggested_users)
                 <div class="suggestion-box">
                     {{-- タイトル行 --}}
-                    <div class="suggestion-title-container" style="margin-bottom:16px;">
+                    <div class="row suggestion-title-container" style="margin-bottom:16px;">
+                        <div class="col-12">
                         {{-- 左: Suggestion For You --}}
-                        <p class="suggestion-title-text">
+                        <p class="suggestion-title-text text-decoration-none">
                             <svg class="suggestion-heart" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 640">
                                 <path
                                     d="M305 151.1L320 171.8L335 151.1C360 116.5 400.2 96 442.9 96C516.4 96 576 155.6 576 229.1L576 231.7C576 343.9 436.1 474.2 363.1 529.9C350.7 539.3 335.5 544 320 544C304.5 544 289.2 539.4 276.9 529.9C203.9 474.2 64 343.9 64 231.7L64 229.1C64 155.6 123.6 96 197.1 96C239.8 96 280 116.5 305 151.1z" />
@@ -184,7 +185,7 @@
                             </svg>
                         </p>
                         {{-- 右: See all --}}
-                        <a href="#" class="see-all-text d-flex align-items-center"
+                        <a href="#" class="see-all-text d-flex align-items-center text-decoration-none"
                             style="gap:4px; white-space: nowrap;">
                             <svg class="suggestion-heart" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 640">
                                 <path
@@ -196,6 +197,7 @@
                                     d="M305 151.1L320 171.8L335 151.1C360 116.5 400.2 96 442.9 96C516.4 96 576 155.6 576 229.1L576 231.7C576 343.9 436.1 474.2 363.1 529.9C350.7 539.3 335.5 544 320 544C304.5 544 289.2 539.4 276.9 529.9C203.9 474.2 64 343.9 64 231.7L64 229.1C64 155.6 123.6 96 197.1 96C239.8 96 280 116.5 305 151.1z" />
                             </svg>
                         </a>
+                        </div>
                     </div>
                     {{-- ユーザーリスト --}}
                     @foreach ($suggested_users as $user)
