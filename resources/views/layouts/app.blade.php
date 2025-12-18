@@ -25,6 +25,8 @@
             --piki-bg-blue: #AEDEFC;
             --piki-bg-purple: #E5D9F2;
             --piki-item-blue: #C2E2FA;
+            --piki-icon-purple: #C8A2FF;
+            --piki-logo-cloud: #DFF4F8;
         }
 
         body {
@@ -49,7 +51,7 @@
             animation: float var(--duration) linear infinite;
             opacity: 0.8;
             pointer-events: none;
-            z-index: -1; /* ← これだけ変更 */
+            z-index: -1;
         }
 
         .container main .col-9 {
@@ -111,11 +113,19 @@
             color: #5f5f5f;
         }
 
+        .nav-item a.nav-link i,
+        .nav-item button.nav-link i {
+            color: var(--piki-icon-purple) !important;
+            font-size: 1.3rem; 
+            width: 24px;
+            text-align: center;
+        }
+
         .nav-item a.nav-link i.fa-circle-plus {
             background-color: #F0F0F0;
             border-radius: 50%;
-            padding: 6px;
-            color: #6f6f6f;
+            padding: 4px;
+            font-size: 1.1rem;
         }
 
         .nav-item a.nav-link i.fa-circle-plus:hover {
@@ -135,6 +145,9 @@
         .navbar-nav .nav-link {
             font-weight: 500;
             padding: 0.5rem 0.75rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
         }
 
         .navbar-toggler {
@@ -174,11 +187,18 @@
 <body class="background-random">
     <div id="app">
 
-        <!-- ===== ヘッダー（そのまま） ===== -->
         <nav class="navbar navbar-expand-md shadow-sm fixed-top" style="background-color: var(--piki-bg-header);">
             <div class="container">
                 <a class="navbar-brand" href="{{ url('/') }}">
-                    <h1 class="mb-0">{{ config('app.name') }}</h1>
+                    <h1 class="mb-0 d-flex align-items-center">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 640" style="width:24px; height:24px; fill:var(--piki-logo-cloud); margin-right:8px;">
+                            <path d="M112 256C112 167.6 183.6 96 272 96C319.1 96 361.4 116.4 390.7 148.7C401.3 145.6 412.5 144 424 144C490.3 144 544 197.7 544 264C544 277.2 541.9 289.9 537.9 301.8C579.5 322.9 608 366.1 608 416C608 486.7 550.7 544 480 544L176 544C96.5 544 32 479.5 32 400C32 343.2 64.9 294.1 112.7 270.6C112.3 265.8 112 260.9 112 256z" />
+                        </svg>
+                        <span style="color:var(--piki-icon-purple); font-weight:500; font-size: 1.4rem;">{{ config('app.name') }}</span>
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 640" style="width:24px; height:24px; fill:var(--piki-logo-cloud); margin-left:8px;">
+                            <path d="M112 256C112 167.6 183.6 96 272 96C319.1 96 361.4 116.4 390.7 148.7C401.3 145.6 412.5 144 424 144C490.3 144 544 197.7 544 264C544 277.2 541.9 289.9 537.9 301.8C579.5 322.9 608 366.1 608 416C608 486.7 550.7 544 480 544L176 544C96.5 544 32 479.5 32 400C32 343.2 64.9 294.1 112.7 270.6C112.3 265.8 112 260.9 112 256z" />
+                        </svg>
+                    </h1>
                 </a>
 
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
@@ -198,7 +218,6 @@
                                 </a>
                             </li>
 
-                            {{-- Language --}}
                             @php
                                 $translationService = app(\App\Services\DeepLTranslationService::class);
                                 $locales = $translationService->getTargetLanguages();
@@ -208,12 +227,11 @@
                             <li class="nav-item dropdown" title="Languages">
                                 <button type="button" id="languageDropdown" class="nav-link dropdown-toggle language-toggle"
                                     data-bs-toggle="dropdown" aria-expanded="false" style="background: none; border: none;">
-                                    <i class="fa-solid fa-earth-americas text-dark icom-sm"></i>
+                                    <i class="fa-solid fa-earth-americas"></i>
                                 </button>
 
                                 <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="languageDropdown"
                                     style="max-height: 70vh; overflow-y: auto;">
-                                    {{-- 言語リストのループ処理 --}}
                                     @foreach($locales as $code => $name)
                                         @php
                                             $linkCode = strtolower($code);
@@ -230,12 +248,11 @@
                                 </ul>
                             </li>
 
-                            {{-- Search --}}
                             @auth
                                 @if (!request()->is('admin/*'))
                                     <li class="nav-item" title="Search" id="search-li">
                                         <button type="button" class="nav-link" id="search-icon-link">
-                                            <i class="fa-solid fa-magnifying-glass text-dark icom-sm"></i>
+                                            <i class="fa-solid fa-magnifying-glass"></i>
                                         </button>
 
                                         <div id="search-input-container">
@@ -247,7 +264,6 @@
                                 @endif
                             @endauth
 
-                            {{-- Create Post --}}
                             <li class="nav-item" title="Create Post">
                                 <a href="{{ route('post.create') }}" class="nav-link">
                                     <i class="fa-solid fa-circle-plus"></i>
@@ -264,12 +280,10 @@
                                 </button>
 
                                 <div class="dropdown-menu dropdown-menu-end" aria-labelledby="account-dropdown">
-                                    {{-- [SOON] Admin Controls --}}
-                                    @can('admin') {{-- @can - other way -- @if(Gate:allows('addmin)) --}}
+                                    @can('admin')
                                         <a href="{{ route('admin.users') }}" class="dropdown-item">
                                             <i class="fa-solid fa-user-gear"></i> Admin
                                         </a>
-
                                         <hr class="dropdown-divider">
                                     @endcan
 
@@ -291,7 +305,6 @@
                 </div>
             </div>
         </nav>
-        <!-- ===== /ヘッダー ===== -->
 
         <main>
             <div class="container">
@@ -348,12 +361,10 @@
                     }
                 });
 
-                // 検索ボックス内をクリックした時に閉じないようにする
                 searchInputContainer.addEventListener('click', function (e) {
                     e.stopPropagation();
                 });
 
-                // 画面のどこかをクリックしたら閉じる
                 document.addEventListener('click', function () {
                     searchInputContainer.classList.remove('search-active');
                 });

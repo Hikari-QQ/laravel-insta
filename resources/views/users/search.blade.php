@@ -1,49 +1,137 @@
 @extends('layouts.app')
- 
-@section('title', 'Explore People')
- 
-@section('content')
-    <div class="row justify-content-center">
-        <div class="col-5">
-            <p class="h5 text-muted mb-4">Search results for "<span class="fw-bold">{{ $search }}</span>"</p>
 
-            @forelse ($users as $user)
-                <div class="row align-items-center mb-3">
-                    <div class="col-auto">
-                        <a href="{{ route('profile.show', $user->id) }}">
-                            @if ($user->avatar)
-                                <img src="{{ $user->avatar }}" alt="{{ $user->name }}" class="rounded-circle avatar-md">
-                            @else
-                                <i class="fa-solid fa-circle-user text-secondary icom-md"></i>
-                            @endif
-                        </a>
-                    </div>
-                    <div class="col ps-0 text-truncate">
-                        <a href="{{ route('profile.show', $user->id) }}" class="text-decoration-none text-dark fw-bold">{{ $user->name }}</a>
-                        <p class="text-muted mb-0">{{ $user->email }}</p>
-                    </div>
-                    <div class="col-auto">
-                        @if ($user->id !== Auth::user()->id)
-                            @if ($user->isFollowed())
-                                <form action="{{ route('follow.destroy', $user->id) }}" method="post">
-                                    @csrf
-                                    @method('DELETE')
-                                    <button type="submit" class="btn btn-outline-secondary fw-bold btn-sm">Following</button>
-                                </form>
-                            @else
-                                <form action="{{ route('follow.store', $user->id) }}" method="post">
-                                    @csrf
-                                    <button type="submit" class="btn btn-primary btn-sm fw-bold">Follow</button>
-                                </form>
-                            @endif
-                        @endif
-                    </div>
-                </div>
-            @empty
-                <p class="lead text-muted text-center">No users found.</p>
-            @endforelse
-        </div>
-    </div>
+@section('title', 'Explore People')
+
+@section('content')
+<style>
+    .search-container {
+        background-color: rgba(255, 255, 255, 0.6);
+        border-radius: 20px;
+        padding: 30px;
+        backdrop-filter: blur(5px);
+    }
+
+    .user-name {
+        color: #C9B3E0;
+        font-weight: bold;
+        text-decoration: none;
+        font-size: 1.1rem;
+    }
+
+    .user-name:hover {
+        color: #b399cc;
+    }
+
+    .avatar-md {
+        width: 60px;
+        height: 60px;
+        border-radius: 50%;
+        object-fit: cover;
+        border: 2px solid #fff;
+        box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    }
+
+    /* デフォルトのユーザーアイコンをピンクに変更 */
+    .icom-md {
+        font-size: 60px;
+        color: #ff85a2; 
+        opacity: 0.8;
+    }
+
+    /* Followボタン（水色） */
+    .btn-follow {
+        background-color: var(--piki-bg-blue);
+        color: #4A4A4A;
+        border: none;
+        border-radius: 50px;
+        padding: 5px 20px;
+        transition: all 0.3s;
+    }
+
+    .btn-follow:hover {
+        background-color: #9cd4f8;
+        transform: translateY(-1px);
+    }
+
+    /* Followingボタン（薄い紫） */
+    .btn-following {
+        background-color: var(--piki-bg-purple);
+        color: #6f6f6f;
+        border: none;
+        border-radius: 50px;
+        padding: 5px 20px;
+        transition: all 0.3s;
+    }
+
+    .btn-following:hover {
+        background-color: #d8c8f0;
+    }
+
+    .search-title {
+        color: var(--piki-gray-main);
+        font-weight: 500;
+        border-bottom: 2px dashed #FFD1E0;
+        display: inline-block;
+    }
+
+    .search-word {
+        color: #ff85a2;
+    }
     
+    /* 検索中アイコン（虫眼鏡）もピンクに合わせる場合 */
+    .no-user-icon {
+        font-size: 3rem;
+        color: #ff85a2;
+        opacity: 0.5;
+    }
+</style>
+
+<div class="row justify-content-center">
+    <div class="col-6 search-container shadow-sm">
+        <div class="mb-5 text-center">
+            <p class="h5 search-title pb-2">
+                Search results for "<span class="search-word fw-bold">{{ $search }}</span>"
+            </p>
+        </div>
+
+        @forelse ($users as $user)
+            <div class="row align-items-center mb-4 pb-3 border-bottom border-white">
+                <div class="col-auto">
+                    <a href="{{ route('profile.show', $user->id) }}">
+                        @if ($user->avatar)
+                            <img src="{{ $user->avatar }}" alt="{{ $user->name }}" class="avatar-md">
+                        @else
+                            <i class="fa-solid fa-circle-user icom-md"></i>
+                        @endif
+                    </a>
+                </div>
+                <div class="col ps-3 text-truncate">
+                    <a href="{{ route('profile.show', $user->id) }}" class="user-name">{{ $user->name }}</a>
+                    <p class="text-muted mb-0 xsmall">{{ $user->email }}</p>
+                </div>
+                <div class="col-auto">
+                    @if ($user->id !== Auth::user()->id)
+                        @if ($user->isFollowed())
+                            <form action="{{ route('follow.destroy', $user->id) }}" method="post">
+                                @csrf
+                                @method('DELETE')
+                                <button type="submit" class="btn btn-following btn-sm fw-bold shadow-sm">Following</button>
+                            </form>
+                        @else
+                            <form action="{{ route('follow.store', $user->id) }}" method="post">
+                                @csrf
+                                <button type="submit" class="btn btn-follow btn-sm fw-bold shadow-sm">Follow</button>
+                            </form>
+                        @endif
+                    @endif
+                </div>
+            </div>
+        @empty
+            <div class="text-center py-5">
+                <i class="fa-solid fa-magnifying-glass mb-3 no-user-icon"></i>
+                <p class="lead text-muted">No users found.</p>
+            </div>
+        @endforelse
+    </div>
+</div>
 @endsection
- 

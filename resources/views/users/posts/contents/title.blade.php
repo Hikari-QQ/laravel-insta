@@ -39,16 +39,17 @@
             </div>
         </div>
         <style>
-            .avatar-lg-custom{
-                width: 40px;
-                height: 40px;
-                font-size: 40px;
-                object-fit: cover;
-            }
-            .post-header-name {
-                color: #C8A2FF !important;
-                font-weight: 500;
-            }
+    .avatar-lg-custom {
+        width: 40px;
+        height: 40px;
+        font-size: 40px; /* アイコン（fa-circle-user）用 */
+        object-fit: cover;
+    }
 
-        </style>
+    .post-header-name {
+        color: #C8A2FF !important;
+        font-weight: 500;
+    }
+</style>
+
     </div>
