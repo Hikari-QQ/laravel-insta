@@ -2,6 +2,15 @@
     .avatar-lg {
         width: 150px;
         height: 150px;
+
+        border: 3px solid #BFEAF2;
+        /* 水色 */
+
+        /* 3. 内側にもう一本細い線を入れて手描き感を出す */
+        outline: 3px dashed #F08FB3;
+        /* ピンクの破線 */
+        outline-offset: -12px;
+        /* 内側に線をずらす */
     }
 
     .object-fit-cover {
@@ -12,9 +21,10 @@
 <div class="row">
     <div class="col-4">
         @if ($user->avatar)
-        <a href="#">
-            <img src="{{ $user->avatar }}" alt="{{ $user->name }}" class="img-thumbnail rounded-circle d-block mx-auto avatar-lg object-fit-cover">
-        </a>
+            <a href="#">
+                <img src="{{ $user->avatar }}" alt="{{ $user->name }}"
+                    class="img-thumbnail rounded-circle d-block mx-auto avatar-lg object-fit-cover">
+            </a>
         @else
             <i class="fa-solid fa-circle-user text-secondary d-block text-center icon-lg"></i>
         @endif
@@ -38,7 +48,7 @@
                     @else
                         <form action="{{ route('follow.store', $user->id) }}" method="post">
                             @csrf
-                            <button type="submit" class="btn btn-secondary btn-sm fw-bold">Follow</button>
+                            <button type="submit" class="btn text-white btn-secondary btn-sm fw-bold">Follow</button>
                         </form>
                     @endif
                 @endif
@@ -47,7 +57,7 @@
         <div class="row mb-3">
             <div class="col-auto">
                 <a href="{{ route('profile.show', $user->id) }}" class="text-decoration-none text-dark">
-                    <strong>{{ $user->posts->count() }}</strong>
+                    <strong style="color: #ff7fbb;">{{ $user->posts->count() }}</strong>
                     @if ($user->posts->count() == 1)
                         post
                     @else
@@ -57,7 +67,7 @@
             </div>
             <div class="col-auto">
                 <a href="{{ route('profile.followers', $user->id) }}" class="text-decoration-none text-dark">
-                    <strong>{{ $user->followers->count() }}</strong>
+                    <strong style="color: #ff7fbb;">{{ $user->followers->count() }}</strong>
                     @if ($user->followers->count() == 1)
                         follower
                     @else
@@ -67,7 +77,7 @@
             </div>
             <div class="col-auto">
                 <a href="{{ route('profile.following', $user->id) }}" class="text-decoration-none text-dark">
-                    <strong>{{ $user->following->count() }}</strong> following
+                    <strong style="color: #ff7fbb;">{{ $user->following->count() }}</strong> following
                 </a>
             </div>
         </div>
