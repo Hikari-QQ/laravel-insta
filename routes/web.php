@@ -74,4 +74,7 @@ Route::group(['middleware' => 'auth'], function() {
     Route::get('/stories/create', [StoryController::class, 'create'])->name('stories.create');
     Route::post('/stories/store', [StoryController::class, 'store'])->name('stories.store');
     Route::get('/stories/{story}', [StoryController::class, 'show'])->name('stories.show');
+    Route::delete('/stories/{story_id}/destroy', [StoryController::class, 'destroy'])->name('stories.destroy');
+
+
 });
