@@ -31,19 +31,50 @@
         </ul>
     @endif
 
-    <form action="{{ route('comment.store', $post->id) }}" method="post">
-        @csrf
+<form action="{{ route('comment.store', $post->id) }}" method="post">
+    @csrf
 
-        <div class="input-group">
-            <textarea name="comment_body{{ $post->id }}" rows="1" class="form-control form-control-sm"
-                placeholder="Add a comment...">{{ old('comment_body' . $post->id) }}</textarea>
-            <button type="submit" class="btn btn-outline-secondary btn-sm" title="Post">
-                <i class="fa-regular fa-paper-plane"></i>
-            </button>
-        </div>
-        {{-- Error --}}
-        @error('comment_body' . $post->id)
-            <div class="text-danger small">{{ $message }}</div>
-        @enderror
-    </form>
+    <div class="position-relative">
+        <textarea name="comment_body{{ $post->id }}" rows="1"
+            class="form-control form-control-sm comment-input pe-5"
+            placeholder="Add a comment…♡">{{ old('comment_body' . $post->id) }}</textarea>
+
+        <button type="submit" class="btn btn-sm comment-send-btn position-absolute top-50 end-0 translate-middle-y"
+            title="Post">
+            <i class="fa-regular fa-paper-plane" style="color: #C8A2FF;"></i>
+        </button>
+    </div>
+
+    @error('comment_body' . $post->id)
+        <div class="text-danger small">{{ $message }}</div>
+    @enderror
+</form>
+
+
+
+<style>
+.comment-input {
+    background-color:#bfeaf2 ; /* 紫色 */
+    border: none;
+    border-radius: 15px;
+    padding: 6px 12px;
+    color: #5f5f5f; /* 文字色 */
+}
+
+.comment-input::placeholder {
+    color: #ff85a2; /* ピンクの文字 */
+    opacity: 1;
+}
+
+.comment-input:focus {
+    box-shadow: none;
+    outline: none;
+}
+.comment-send-btn i {
+ 
+    color: #C9B3E0; 
+}
+</style>
+
 </div>
+
