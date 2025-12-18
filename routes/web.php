@@ -10,9 +10,10 @@ use App\Http\Controllers\PostController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
-
+use App\Http\Controllers\Auth\LoginController;
 #Admin Controller
 use App\Http\Controllers\Admin\UsersController;
+use App\Http\Controllers\LocaleController;
 use App\Http\Controllers\StoryController;
 
 Auth::routes();
@@ -20,10 +21,10 @@ Auth::routes();
 //keisuke sanjo izamairu
 //shion sansenn hai
 Route::group(['middleware' => 'auth'], function() {
+    Route::get('/welcome', [LoginController::class, 'showWelcome'])->name('login.welcome');
     Route::get('/', [HomeController::class, 'index'])->name('index');
     Route::get('/people', [HomeController::class, 'search'])->name('search');
-    // {locale} の部分に、ユーザーが選択した言語コード (ja, en, frなど) が入ります。
-    Route::get('locale/{locale}', [App\Http\Controllers\LocaleController::class, 'setLocale'])->name('locale.set');
+    Route::get('locale/{locale}', [LocaleController::class, 'setLocale'])->name('locale.set');
 
     Route::group(['prefix' => 'admin', 'as' => 'admin.', 'middleware' => 'admin'], function() {
         //USER
