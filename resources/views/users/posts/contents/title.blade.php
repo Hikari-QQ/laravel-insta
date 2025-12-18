@@ -39,9 +39,16 @@
             </div>
         </div>
         <style>
+            .avatar-lg-custom{
+                width: 40px;
+                height: 40px;
+                font-size: 40px;
+                object-fit: cover;
+            }
             .post-header-name {
                 color: #C8A2FF !important;
                 font-weight: 500;
             }
+
         </style>
     </div>

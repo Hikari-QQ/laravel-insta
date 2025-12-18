@@ -34,7 +34,16 @@ class StoryController extends Controller
 
     public function show($id){
         $story = $this->story->findOrFail($id);
-        return view('users.stories.show')->with('story',$story);
+        
+        // nextStory
+        $nextStory = Story::where('id', '>', $story->id)
+            ->orderBy('id')
+            ->first();
+
+
+        return view('users.stories.index')
+        ->with('story',$story)
+        ->with('nextStory',$nextStory);
     }
 
     public function destroy($id){

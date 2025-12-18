@@ -1,13 +1,11 @@
 @extends('layouts.app')
-
 @section('title', 'Home')
-
 <style>
     /* =========================
    Suggestion Box
 ========================= */
     .suggestion-box {
-        background-color: #ffffff;
+        background-color: #FFFFFF;
         border-radius: 20px;
         padding: 20px 18px;
         box-shadow: 0 6px 16px rgba(0, 0, 0, 0.05);
@@ -31,7 +29,7 @@
         /* 左のハートと文字の間 */
         margin-right: 6px;
         /* ハートと文字の間 */
-        color: #f08fb3;
+        color: #F08FB3;
         font-size: 0.95rem;
         white-space: nowrap;
         /* 一列に */
@@ -47,20 +45,20 @@
     }
 
     .see-all-text {
-        color: #f08fb3;
+        color: #F08FB3;
         font-size: 0.85rem;
         text-decoration: underline !important;
     }
 
     .see-all-text:hover {
-        color: #e46a9a;
+        color: #E46A9A;
     }
 
     /* ハート（水色） */
     .suggestion-heart {
         width: 14px;
         height: 14px;
-        fill: #bfeaf2;
+        fill: #BFEAF2;
     }
 
     /* suggestion item */
@@ -76,8 +74,8 @@
 
     /* Follow ボタン（水色・ボタン風） */
     .follow-btn {
-        background-color: #dff4f8;
-        color: #4b8fa1;
+        background-color: #DFF4F8;
+        color: #4B8FA1;
         border: none;
         border-radius: 20px;
         padding: 4px 14px;
@@ -86,34 +84,53 @@
     }
 
     .follow-btn:hover {
-        background-color: #c9ecf3;
+        background-color: #C9ECF3;
     }
+
     .text-pink {
-    color: #f08fb3; /* 薄いピンク */
-}
+        color: #F08FB3;
+        /* 薄いピンク */
+    }
 
+    /* Add Story ボタン専用スタイル */
+    .add-story-btn {
+        background-color: #BFEAF2 !important;
+        /* 少しはっきりした水色 */
+        color: #F08FB3 !important;
+        /* 文字をピンクに */
+        border: none !important;
+        border-radius: 20px;
+        padding: 6px 20px;
+        font-weight: 600;
+        text-decoration: none !important;
+        /* 下線を消す */
+        display: inline-block;
+    }
+
+    /* ホバー（マウスを乗せた時）の設定 */
+    .add-story-btn:hover {
+        background-color: #C9ECF3 !important;
+        /* ホバー時に少し濃い水色 */
+        color: #E46A9A !important;
+        /* ホバー時に少し濃いピンク */
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+        /* 軽く影をつけてボタンらしく */
+    }
 </style>
-
 @section('content')
     <div class="row">
-        <a href="{{ route('stories.create') }}" class="btn btn-primary">Add Story</a>
+        <a href="{{ route('stories.create') }}" class="btn add-story-btn">♡Add Story♡</a>
     </div>
-
     {{-- stories --}}
-    <div class="row mb-3">
-        <div class="col text-start">
-            <div class="story-bar d-flex overflow-auto p-2">
-                @foreach ($home_stories as $story)
-                    <div class="story-item text-center mx-2">
-                        <img src="{{ $story->user->avatar }}" alt="Story" class="rounded-circle" width="70"
-                            height="70" data-bs-toggle="modal" data-bs-target="#showStoryModal-{{ $story->id }}">
-                        <p class="small">{{ $story->user->name }}</p>
-                    </div>
-                @endforeach
-            </div>
-        </div>
+    <div class="story-bar d-flex overflow-auto p-2">
+        @foreach ($home_stories as $story)
+            <a href="{{ route('stories.show', $story->id) }}"
+                class="story-item text-center mx-2 text-decoration-none text-dark"> <img src="{{ $story->user->avatar }}"
+                    class="rounded-circle" width="70" height="70">
+                <p class="small">{{ $story->user->name }}</p>
+            </a>
+        @endforeach
     </div>
-
     {{-- main --}}
     <div class="row gx-5">
         <div class="col-8">
@@ -130,7 +147,6 @@
                 </div>
             @endforelse
         </div>
-
         <div class="col-4">
             {{-- Profile Overview --}}
             <div class="row align-items-center mb-5 bg-white shadow-sm rounded-3 py-3">
@@ -140,9 +156,8 @@
                             <img src="{{ Auth::user()->avatar }}" alt="{{ Auth::user()->name }}"
                                 class="rounded-circle avatar-md">
                         @else
-                              <i class="fa-solid fa-circle-user text-pink icom-sm"></i>
+                            <i class="fa-solid fa-circle-user text-pink icom-sm"></i>
                         @endif
-
                     </a>
                 </div>
                 <div class="col ps-0">
@@ -151,7 +166,6 @@
                     <p class="text-muted mb-0">{{ Auth::user()->email }}</p>
                 </div>
             </div>
-
             {{-- Suggestions --}}
             @if ($suggested_users)
                 <div class="suggestion-box">
@@ -169,7 +183,6 @@
                                     d="M305 151.1L320 171.8L335 151.1C360 116.5 400.2 96 442.9 96C516.4 96 576 155.6 576 229.1L576 231.7C576 343.9 436.1 474.2 363.1 529.9C350.7 539.3 335.5 544 320 544C304.5 544 289.2 539.4 276.9 529.9C203.9 474.2 64 343.9 64 231.7L64 229.1C64 155.6 123.6 96 197.1 96C239.8 96 280 116.5 305 151.1z" />
                             </svg>
                         </p>
-
                         {{-- 右: See all --}}
                         <a href="#" class="see-all-text d-flex align-items-center"
                             style="gap:4px; white-space: nowrap;">
@@ -184,7 +197,6 @@
                             </svg>
                         </a>
                     </div>
-
                     {{-- ユーザーリスト --}}
                     @foreach ($suggested_users as $user)
                         <div class="row align-items-center suggestion-item">
@@ -211,7 +223,6 @@
                         </div>
                     @endforeach
                 </div>
-
         </div>
         @endif
     </div>
