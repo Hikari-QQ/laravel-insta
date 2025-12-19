@@ -139,13 +139,13 @@
                 </div>
             @empty
                 <div class="text-center">
-                    <h2>Share Photos</h2>
-                    <p class="text-secondary">When you share photos, they'll appear on your profile.</p>
-                    <a href="#" class="text-decoration-none">Share your first photo</a>
+                    <h2>@translate('Share Photos')</h2>
+                    <p class="text-secondary">@translate('When you share photos, they\'ll appear on your profile.')</p>
+                    <a href="#" class="text-decoration-none">@translate('Share your first photo')</a>
                 </div>
             @endforelse
         </div>
-        <div class="col-4">
+        <div class="col-4 ">
             {{-- Profile Overview --}}
             <div class="row align-items-center mb-5 bg-white shadow-sm rounded-3 py-3">
                 <div class="col-auto">
@@ -171,35 +171,22 @@
                     <div class="row suggestion-title-container" style="margin-bottom:16px;">
                         <div class="col-12">
                         {{-- 左: Suggestion For You --}}
-                        <p class="suggestion-title-text text-decoration-none">
-                            <svg class="suggestion-heart" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 640">
-                                <path
-                                    d="M305 151.1L320 171.8L335 151.1C360 116.5 400.2 96 442.9 96C516.4 96 576 155.6 576 229.1L576 231.7C576 343.9 436.1 474.2 363.1 529.9C350.7 539.3 335.5 544 320 544C304.5 544 289.2 539.4 276.9 529.9C203.9 474.2 64 343.9 64 231.7L64 229.1C64 155.6 123.6 96 197.1 96C239.8 96 280 116.5 305 151.1z" />
-                            </svg>
-                            Suggestion For You
-                            <svg class="suggestion-heart" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 640">
-                                <path
-                                    d="M305 151.1L320 171.8L335 151.1C360 116.5 400.2 96 442.9 96C516.4 96 576 155.6 576 229.1L576 231.7C576 343.9 436.1 474.2 363.1 529.9C350.7 539.3 335.5 544 320 544C304.5 544 289.2 539.4 276.9 529.9C203.9 474.2 64 343.9 64 231.7L64 229.1C64 155.6 123.6 96 197.1 96C239.8 96 280 116.5 305 151.1z" />
-                            </svg>
-                        </p>
-                        {{-- 右: See all --}}
-                        <a href="#" class="see-all-text d-flex align-items-center text-decoration-none"
-                            style="gap:4px; white-space: nowrap;">
-                            <svg class="suggestion-heart" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 640">
-                                <path
-                                    d="M305 151.1L320 171.8L335 151.1C360 116.5 400.2 96 442.9 96C516.4 96 576 155.6 576 229.1L576 231.7C576 343.9 436.1 474.2 363.1 529.9C350.7 539.3 335.5 544 320 544C304.5 544 289.2 539.4 276.9 529.9C203.9 474.2 64 343.9 64 231.7L64 229.1C64 155.6 123.6 96 197.1 96C239.8 96 280 116.5 305 151.1z" />
-                            </svg>
-                            See all
-                            <svg class="suggestion-heart" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 640">
-                                <path
-                                    d="M305 151.1L320 171.8L335 151.1C360 116.5 400.2 96 442.9 96C516.4 96 576 155.6 576 229.1L576 231.7C576 343.9 436.1 474.2 363.1 529.9C350.7 539.3 335.5 544 320 544C304.5 544 289.2 539.4 276.9 529.9C203.9 474.2 64 343.9 64 231.7L64 229.1C64 155.6 123.6 96 197.1 96C239.8 96 280 116.5 305 151.1z" />
-                            </svg>
-                        </a>
+                            <p class="suggestion-title-text text-decoration-none justify-content-center">
+                                <svg class="suggestion-heart" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 640">
+                                    <path
+                                        d="M305 151.1L320 171.8L335 151.1C360 116.5 400.2 96 442.9 96C516.4 96 576 155.6 576 229.1L576 231.7C576 343.9 436.1 474.2 363.1 529.9C350.7 539.3 335.5 544 320 544C304.5 544 289.2 539.4 276.9 529.9C203.9 474.2 64 343.9 64 231.7L64 229.1C64 155.6 123.6 96 197.1 96C239.8 96 280 116.5 305 151.1z" />
+                                </svg>
+                                @translate('Suggestion For You')
+                                <svg class="suggestion-heart" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 640">
+                                    <path
+                                        d="M305 151.1L320 171.8L335 151.1C360 116.5 400.2 96 442.9 96C516.4 96 576 155.6 576 229.1L576 231.7C576 343.9 436.1 474.2 363.1 529.9C350.7 539.3 335.5 544 320 544C304.5 544 289.2 539.4 276.9 529.9C203.9 474.2 64 343.9 64 231.7L64 229.1C64 155.6 123.6 96 197.1 96C239.8 96 280 116.5 305 151.1z" />
+                                </svg>
+                            </p>
                         </div>
                     </div>
                     {{-- ユーザーリスト --}}
-                    @foreach ($suggested_users as $user)
-                        <div class="row align-items-center suggestion-item">
+                    @foreach (array_slice($suggested_users, 0, 5) as $user)
+                        <div class="row align-items-center suggestion-item mt-2">
                             <div class="col-auto">
                                 <a href="{{ route('profile.show', $user->id) }}">
                                     @if ($user->avatar)
@@ -214,14 +201,40 @@
                                 <a href="{{ route('profile.show', $user->id) }}"
                                     class="text-decoration-none text-dark fw-bold">{{ $user->name }}</a>
                             </div>
-                            <div class="col-auto">
-                                <form action="{{ route('follow.store', $user->id) }}" method="post">
+                            <div class="col-auto d-flex align-items-center">
+                                <form action="{{ route('follow.store', $user->id) }}" method="post" class="m-0">
                                     @csrf
-                                    <button type="submit" class="follow-btn">Follow</button>
+                                    <button type="submit" class="follow-btn">@translate('Follow')</button>
                                 </form>
                             </div>
                         </div>
                     @endforeach
+
+                    @if (count($suggested_users) > 5)
+                        <div class="row">
+                            <div class="col text-center mt-0 mb-0">
+                                <p class="text-muted small">
+                                    @translate('and {{ count($suggested_users) - 5 }} others...')
+                                </p>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col  mt-0 mb-0">
+                                <a href="{{ route('seeAll') }}" class="see-all-text d-flex align-items-center text-decoration-none justify-content-center"
+                                    style="gap:4px; white-space: nowrap;">
+                                    <svg class="suggestion-heart" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 640">
+                                        <path
+                                            d="M305 151.1L320 171.8L335 151.1C360 116.5 400.2 96 442.9 96C516.4 96 576 155.6 576 229.1L576 231.7C576 343.9 436.1 474.2 363.1 529.9C350.7 539.3 335.5 544 320 544C304.5 544 289.2 539.4 276.9 529.9C203.9 474.2 64 343.9 64 231.7L64 229.1C64 155.6 123.6 96 197.1 96C239.8 96 280 116.5 305 151.1z" />
+                                    </svg>
+                                    @translate('See all')
+                                    <svg class="suggestion-heart" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 640">
+                                        <path
+                                            d="M305 151.1L320 171.8L335 151.1C360 116.5 400.2 96 442.9 96C516.4 96 576 155.6 576 229.1L576 231.7C576 343.9 436.1 474.2 363.1 529.9C350.7 539.3 335.5 544 320 544C304.5 544 289.2 539.4 276.9 529.9C203.9 474.2 64 343.9 64 231.7L64 229.1C64 155.6 123.6 96 197.1 96C239.8 96 280 116.5 305 151.1z" />
+                                    </svg>
+                                </a>
+                            </div>
+                        </div>
+                    @endif
                 </div>
         </div>
         @endif
