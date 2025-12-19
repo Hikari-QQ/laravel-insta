@@ -17,8 +17,8 @@
     object-fit: cover;
     border-radius: 25px;
     transition: all 0.3s ease;
-    border: 6px solid #BFEAF2;
-    outline: 3px dashed #F08FB3;
+    border: 6px solid #31d7f0;
+    outline: 3px dashed #f74f87;
     outline-offset: -12px;
     box-shadow: 
         5px 5px 0px 0px #FBEFEF,
@@ -27,8 +27,8 @@
 
 .grid-img:hover {
     transform: scale(1.03) rotate(-2deg);
-    border-color: #F08FB3;
-    outline-color: #BFEAF2;
+    border-color: #f983ff;
+    outline-color: #66fff5;
     box-shadow: 
         7px 7px 0px 0px #DFF4F8,
         15px 15px 20px rgba(240, 143, 179, 0.2);
@@ -76,6 +76,13 @@
 .cloud {
     background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 640 640'%3E%3Cpath fill='%23E5D9F2' d='M112 256C112 167.6 183.6 96 272 96C319.1 96 361.4 116.4 390.7 148.7C401.3 145.6 412.5 144 424 144C490.3 144 544 197.7 544 264C544 277.2 541.9 289.9 537.9 301.8C579.5 322.9 608 366.1 608 416C608 486.7 550.7 544 480 544L176 544C96.5 544 32 479.5 32 400C32 343.2 64.9 294.1 112.7 270.6C112.3 265.8 112 260.9 112 256z'/%3E%3C/svg%3E");
 }
+
+.posts-title{
+    color: #F08FB3;
+    font-weight: bold;
+    margin-bottom: 30px;
+    text-shadow: 1px 1px 0px #fff;
+}
 </style>
 
 @include('users.profile.header')
@@ -92,7 +99,7 @@
             @endforeach
         </div>
     @else
-        <h3 class="text-muted text-center">No Posts Yet</h3>
+        <h3 class="text-center posts-title" style="margin-top: 100px;">☁️ No Posts Yet ☁️</h3>
     @endif
 </div>
 

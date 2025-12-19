@@ -2,15 +2,10 @@
     .avatar-lg {
         width: 150px;
         height: 150px;
-
-        border: 3px solid #BFEAF2;
-        /* 水色 */
-
-        /* 3. 内側にもう一本細い線を入れて手描き感を出す */
-        outline: 3px dashed #F08FB3;
-        /* ピンクの破線 */
-        outline-offset: -12px;
-        /* 内側に線をずらす */
+        padding: 5px;
+        background: linear-gradient(45deg, #f983ff, #66fff5);
+        border-radius: 50%;
+        display: inline-block;
     }
 
     .object-fit-cover {
