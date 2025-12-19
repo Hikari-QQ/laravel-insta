@@ -57,7 +57,7 @@
 
     /* 投稿ボタン（Post作成画面のスタイルに統一） */
     .btn-post {
-        background-color: #AEDEFC;
+        background-color: #DFF4F8;
         color: #4A4A4A;
         border: none;
         border-radius: 50px;
@@ -107,7 +107,7 @@
                     <div class="file-input-wrapper">
                         <input class="form-control form-control-cute border-0 bg-transparent" type="file" id="story_image" name="story_image" required>
                         <div class="form-text mt-3" style="color: #a08f8f; font-size: 0.8rem;">
-                            <i class="fa-solid fa-circle-info me-1" style="color: #AEDEFC;"></i>
+                            <i class="fa-solid fa-circle-info me-1" style="color: #DFF4F8;"></i>
                             JPG, PNG or GIF (Max 5MB)
                         </div>
                     </div>

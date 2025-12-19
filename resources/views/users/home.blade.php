@@ -73,18 +73,24 @@
     }
 
     /* Follow ボタン（水色・ボタン風） */
+    /* Follow ボタン（水色ベース × 指定の黒っぽい文字色 #37353E） */
     .follow-btn {
-        background-color: #DFF4F8;
-        color: #4B8FA1;
-        border: none;
+        background-color: #DFF4F8 !important; /* Registerのフォーム等と同じ明るい水色 */
+        color: #37353E !important;            /* 指定の黒っぽい色 */
+        border: none !important;
         border-radius: 20px;
-        padding: 4px 14px;
+        padding: 5px 16px;                     /* 少しだけ余白を調整 */
         font-size: 0.75rem;
-        font-weight: 600;
+        font-weight: 700;                      /* 太字にして視認性アップ */
+        transition: all 0.3s ease;
+        cursor: pointer;
     }
 
     .follow-btn:hover {
-        background-color: #C9ECF3;
+        background-color: #BFEAF2 !important; /* ホバー時は少しだけ濃い水色 */
+        color: #37353E !important;
+        transform: translateY(-1px);          /* 軽く浮き上がる演出 */
+        box-shadow: 0 4px 8px rgba(191, 234, 242, 0.4);
     }
 
     .text-pink {

@@ -62,14 +62,14 @@
 
     .category-badge-label {
         font-size: 0.9rem;
-        color: #6f6f6f;
+        color: ;
         cursor: pointer;
         font-weight: 500;
     }
 
     /* 投稿ボタン */
     .btn-post {
-        background-color: #AEDEFC;
+        background-color: #DFF4F8;
         color: #4A4A4A;
         border: none;
         border-radius: 50px;
@@ -86,7 +86,7 @@
 
     .image-info-text {
         font-size: 0.75rem;
-        color: #a08f8f;
+        color: #4A4A4A;
         margin-top: 8px;
     }
 
@@ -144,7 +144,7 @@
                     <label for="image" class="form-label-cute">Image</label>
                     <input type="file" name="image" id="image" class="form-control form-control-cute" aria-describedby="image-info">
                     <div class="image-info-text" id="image-info">
-                        <i class="fa-solid fa-circle-info me-1" style="color: #AEDEFC;"></i>
+                        <i class="fa-solid fa-circle-info me-1" style="color: #DFF4F8;"></i>
                         Formats: jpeg, jpg, png, gif only (Max: 1048kb)
                     </div>
                     @error('image')
