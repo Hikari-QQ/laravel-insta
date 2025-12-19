@@ -32,20 +32,28 @@ class StoryController extends Controller
     return redirect()->route('index');
     }
 
-    public function show($id){
-        $story = $this->story->findOrFail($id);
-        
-        // nextStory
-        $nextStory = Story::where('expires_at', '>', now())
+   public function show($id)
+{
+    $story = Story::findOrFail($id);
+
+    $nextStory = Story::where('user_id', $story->user_id)
         ->where('id', '>', $story->id)
-        ->orderBy('id')
+        ->where('expires_at', '>', now())
+        ->orderBy('id', 'asc')
         ->first();
 
-
-        return view('users.stories.index')
-        ->with('story',$story)
-        ->with('nextStory',$nextStory);
+    if (!$nextStory) {
+        $nextStory = Story::where('user_id', '!=', $story->user_id)
+            ->where('id', '>', $story->id)
+            ->where('expires_at', '>', now())
+            ->orderBy('id', 'asc')
+            ->first();
     }
+
+    return view('users.stories.index')
+        ->with('story', $story)
+        ->with('nextStory', $nextStory);
+}
 
     public function destroy($id){
         $story = $this->story->findOrFail($id);
