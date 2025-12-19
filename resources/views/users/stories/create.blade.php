@@ -4,75 +4,84 @@
 
 @section('content')
 <style>
-    /* 全体の背景：ホーム画面と調和する淡いグレーベージュのグラデーション */
-    .custom-container {
-        background: linear-gradient(135deg, #fdfbfb 0%, #ebedee 100%);
-        min-height: 90vh;
-        display: flex;
-        align-items: center;
+    /* 1. 外部の背景やグラデーションを完全に上書きして白くする */
+    body, #app, main {
+        background-color: #ffffff !important;
+        background: #ffffff !important;
     }
 
-    /* カード：柔らかい影と大きな角丸 */
+    /* 2. 画面中央に配置するためのラッパー（背景は白） */
+    .story-page-wrapper {
+        background-color: #ffffff;
+        min-height: 80vh;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 20px;
+    }
+
+    /* 3. カードのデザイン：影を繊細にして浮遊感を出す */
     .story-card {
         border: none;
-        border-radius: 25px;
-        background-color: rgba(255, 255, 255, 0.9);
-        backdrop-filter: blur(10px);
-        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+        border-radius: 30px;
+        background-color: #ffffff;
+        box-shadow: 0 15px 40px rgba(183, 156, 156, 0.12); /* ほんのりピンク系の繊細な影 */
+        overflow: hidden;
     }
 
     .card-header-cute {
         background: transparent;
-        border-bottom: 1px solid #f3ecec;
-        padding: 1.5rem;
+        border: none;
+        padding: 2.5rem 1rem 1rem 1rem;
         text-align: center;
     }
 
     .card-header-cute h5 {
-        color: #F08FB3; /* ホーム画面と同じピンク */
+        color: #F08FB3;
         font-weight: 700;
-        letter-spacing: 0.5px;
+        letter-spacing: 1px;
         display: flex;
         justify-content: center;
         align-items: center;
-        gap: 8px;
+        gap: 10px;
+        margin: 0;
     }
 
-    /* ハートアイコン（水色） */
     .header-heart {
-        width: 18px;
-        height: 18px;
+        width: 20px;
+        height: 20px;
         fill: #BFEAF2;
     }
 
-    /* 入力エリアのラベル */
-    .form-label-cute {
-        color: #8d7d7d;
-        font-size: 0.9rem;
-        font-weight: 600;
-    }
-
-    /* ファイルアップロードエリア（点線） */
+    /* 4. アップロードエリア */
     .file-input-wrapper {
-        border: 2px dashed #BFEAF2; /* 水色の点線 */
+        border: 2px dashed #BFEAF2;
         border-radius: 20px;
-        padding: 40px 20px;
+        padding: 30px 15px;
         text-align: center;
-        background-color: #fdfdfd;
+        background-color: #fffafb;
         transition: all 0.3s ease;
+        cursor: pointer;
     }
 
     .file-input-wrapper:hover {
-        border-color: #F08FB3; /* ホバーでピンクに */
-        background-color: #fff9fb;
+        border-color: #F08FB3;
+        background-color: #ffffff;
+        transform: scale(1.02);
     }
 
-    /* メインボタン：水色背景 × ピンク文字 (ホーム画面のAdd Storyボタンと統一) */
+    .form-label-cute {
+        color: #a08f8f;
+        font-weight: 600;
+        font-size: 0.9rem;
+    }
+
+    /* 5. 投稿ボタン */
     .btn-cute-post {
         background-color: #BFEAF2 !important;
         color: #F08FB3 !important;
         border: none !important;
-        border-radius: 20px;
+        border-radius: 25px;
         padding: 12px;
         font-weight: 700;
         transition: all 0.3s;
@@ -80,25 +89,24 @@
 
     .btn-cute-post:hover {
         background-color: #C9ECF3 !important;
-        color: #E46A9A !important;
-        transform: translateY(-2px);
-        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        transform: translateY(-3px);
+        box-shadow: 0 8px 20px rgba(191, 234, 242, 0.4);
     }
 
-    /* 戻るボタン：文字ピンク・アンダーライン */
+    /* 6. 戻るリンク */
     .btn-cute-cancel {
         color: #F08FB3;
         font-size: 0.9rem;
-        text-decoration: underline !important;
+        text-decoration: none !important;
         font-weight: 500;
-        transition: color 0.2s;
+        opacity: 0.7;
     }
 
     .btn-cute-cancel:hover {
+        opacity: 1;
         color: #E46A9A;
     }
 </style>
-
 <div class="custom-container py-5">
     <div class="container">
         <div class="row justify-content-center">
@@ -138,6 +146,7 @@
     </div>
 </div>
 @endsection
+
 
 
 
