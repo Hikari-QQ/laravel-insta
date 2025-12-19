@@ -47,7 +47,7 @@
     }
 
     .post-header-name {
-        color: #C8A2FF !important;
+        color: #37353E !important;
         font-weight: 500;
     }
 </style>

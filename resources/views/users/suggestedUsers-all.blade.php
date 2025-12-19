@@ -3,86 +3,98 @@
 @section('title', 'Suggested Users')
 
 @section('content')
+了解いたしました！ユーザー名を少し落ち着いた**「#37353E（チャコールグレー）」**に変更して、全体的に甘すぎない、引き締まった大人かわいいデザインに整えますね。
+
+あわせて、背景の「透けている白（rgba(255, 255, 255, 0.6)）」を、これまでの画面と統一感が出るように**「真っ白な浮遊感のあるカード」**にアップデートします♡
+
+✨ Updated: Suggested Users (大人かわいいVer.)
+HTML
+
+@extends('layouts.app')
+
+@section('title', 'Suggested Users')
+
+@section('content')
 <style>
-    .search-container {
-        background-color: rgba(255, 255, 255, 0.6);
-        border-radius: 20px;
-        padding: 30px;
-        backdrop-filter: blur(5px);
+    /* 全体を白背景に固定 */
+    body, #app, main {
+        background-color: #ffffff !important;
     }
 
+    /* 検索・おすすめコンテナ：真っ白なカードが浮いているデザイン */
+    .search-container {
+        background-color: #ffffff;
+        border-radius: 30px;
+        padding: 40px;
+        box-shadow: 0 15px 40px rgba(183, 156, 156, 0.12);
+        margin-top: 40px;
+    }
+
+    /* ユーザー名：ご指定の #37353E に変更 */
     .user-name {
-        color: #C9B3E0;
-        font-weight: bold;
+        color: #37353E;
+        font-weight: 700;
         text-decoration: none;
         font-size: 1.1rem;
+        transition: color 0.3s;
     }
 
     .user-name:hover {
-        color: #b399cc;
+        color: #F08FB3; /* ホバー時はテーマカラーのピンクに */
     }
 
     .avatar-md {
-        width: 60px;
-        height: 60px;
+        width: 65px;
+        height: 65px;
         border-radius: 50%;
         object-fit: cover;
-        border: 2px solid #fff;
-        box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        border: 3px solid #fff;
+        box-shadow: 0 4px 10px rgba(0,0,0,0.05);
     }
 
-    /* デフォルトのユーザーアイコンをピンクに変更 */
+    /* デフォルトのユーザーアイコン */
     .icom-md {
-        font-size: 60px;
-        color: #ff85a2; 
+        font-size: 65px;
+        color: #F08FB3; /* ピンク */
         opacity: 0.8;
     }
 
-    /* Followボタン（水色） */
+    /* Followボタン：水色ベース × ピンク文字（他のボタンと統一） */
     .btn-follow {
-        background-color: var(--piki-bg-blue);
-        color: #4A4A4A;
-        border: none;
+        background-color: #BFEAF2 !important;
+        color: #F08FB3 !important;
+        border: none !important;
         border-radius: 50px;
-        padding: 5px 20px;
+        padding: 8px 25px;
+        font-weight: 700;
         transition: all 0.3s;
     }
 
     .btn-follow:hover {
-        background-color: #9cd4f8;
-        transform: translateY(-1px);
+        background-color: #C9ECF3 !important;
+        transform: translateY(-2px);
+        box-shadow: 0 5px 15px rgba(191, 234, 242, 0.4);
     }
 
-    /* Followingボタン（薄い紫） */
-    .btn-following {
-        background-color: var(--piki-bg-purple);
-        color: #6f6f6f;
-        border: none;
-        border-radius: 50px;
-        padding: 5px 20px;
-        transition: all 0.3s;
-    }
-
-    .btn-following:hover {
-        background-color: #d8c8f0;
-    }
-
+    /* タイトル部分 */
     .search-title {
-        color: var(--piki-gray-main);
-        font-weight: 500;
-        border-bottom: 2px dashed #FFD1E0;
+        color: #37353E;
+        font-weight: 800;
+        letter-spacing: 1px;
+        border-bottom: 3px dashed #BFEAF2; /* 水色の点線 */
         display: inline-block;
+        padding-bottom: 8px;
     }
 
-    .search-word {
-        color: #ff85a2;
+    /* リストの区切り線 */
+    .user-row {
+        border-bottom: 1px solid #f8f1f1;
+        padding-bottom: 1.5rem;
+        margin-bottom: 1.5rem;
     }
-    
-    /* 検索中アイコン（虫眼鏡）もピンクに合わせる場合 */
-    .no-user-icon {
-        font-size: 3rem;
-        color: #ff85a2;
-        opacity: 0.5;
+
+    .user-row:last-child {
+        border-bottom: none;
     }
 </style>
 
