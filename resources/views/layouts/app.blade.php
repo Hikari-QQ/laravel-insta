@@ -54,6 +54,7 @@
             position: relative;
             z-index: 10;
         }
+        
 
         h1,
         h2,
@@ -222,6 +223,75 @@
             background-color: #FBEFEF;
             color: #F08FB3;
         }
+
+        /* Post/Story と同じ hover デザイン */
+        /* Search メニュー全体の hover + input focus で文字色をピンク */
+        /* Search メニュー内のホバー設定 */
+        #search-menu:hover {
+            background-color: #FBEFEF;
+        }
+
+        /* ホバーした時に中の文字とプレースホルダーをピンクにする */
+        #search-menu:hover input,
+        #search-menu:hover input::placeholder {
+            color: #F08FB3 !important;
+        }
+
+        /* 通常時のinput設定（背景を透明にしてメニュー側の背景を見せる） */
+        #search-menu input {
+            background: transparent;
+            border: none;
+            padding: 8px 16px;
+            width: 100%;
+            outline: none;
+            color: #5f5f5f;
+            transition: color 0.2s;
+        }
+
+        /* メニュー全体の共通デザイン（浮いている感じ） */
+        .create-menu {
+            position: absolute;
+            top: 50px;
+            /* 位置の微調整 */
+            right: 0;
+            background: #ffffff;
+            border-radius: 14px;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
+            padding: 8px 0;
+            min-width: 150px;
+            display: none;
+            z-index: 1000;
+        }
+
+        /* 表示された時のクラス */
+        .create-menu.show {
+            display: block;
+        }
+
+        /* 各項目のデザイン */
+        .create-item {
+            display: block;
+            padding: 10px 20px;
+            font-size: 0.9rem;
+            color: #7a7a7a;
+            text-align: left;
+            /* 左揃えが見やすいです */
+            text-decoration: none;
+            transition: all 0.2s ease;
+        }
+
+        /* 【重要】触った時（ホバー）の設定 */
+        .create-item:hover {
+            background-color: #FBEFEF;
+            /* 薄いピンク背景 */
+            color: #F08FB3 !important;
+            /* かわいいピンク文字 */
+        }
+
+        /* アイコンも一緒にピンクにする */
+        .create-item:hover i {
+            color: #F08FB3 !important;
+        }
     </style>
 </head>
 
@@ -273,65 +343,68 @@
                             </li>
 
                             @if (!request()->is('admin/*'))
-                                <li class="nav-item" title="Search" id="search-li">
-                                    <button type="button" class="nav-link" id="search-icon-link">
+                                <li class="nav-item position-relative" title="Search" id="search-li">
+                                    <button type="button" class="nav-link" id="search-toggle"
+                                        style="background:none; border:none;">
                                         <i class="fa-solid fa-magnifying-glass"></i>
                                     </button>
-                                    <div id="search-input-container">
-                                        <form action="{{ route('search') }}" method="get">
-                                            <input type="search" name="search" placeholder="Search user..."
-                                                class="form-control form-control-sm">
+                                    <div id="search-menu" class="create-menu" style="min-width:180px;">
+                                        <form action="{{ route('search') }}" method="get" class="m-0 p-1">
+                                            <input type="search" name="search" placeholder="Search user...">
                                         </form>
                                     </div>
                                 </li>
                             @endif
+
                             @php
                                 $translationService = app(\App\Services\DeepLTranslationService::class);
                                 $locales = $translationService->getTargetLanguages();
                                 $currentLocale = Session::get('locale', 'en');
                             @endphp
-                            <li class="nav-item dropdown" title="Languages">
-                                <button type="button" id="languageDropdown" class="nav-link dropdown-toggle"
-                                    data-bs-toggle="dropdown" style="background: none; border: none;">
+                            <li class="nav-item position-relative" title="Languages">
+                                <button type="button" id="language-toggle" class="nav-link"
+                                    style="background:none; border:none;">
                                     <i class="fa-solid fa-earth-americas"></i>
                                 </button>
-                                <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="languageDropdown"
-                                    style="max-height: 70vh; overflow-y: auto;">
+                                <div id="language-menu" class="create-menu" style="max-height: 50vh; overflow-y: auto;">
                                     @foreach ($locales as $code => $name)
-                                        @php
-                                            $linkCode = strtolower($code);
-                                            $isActive = strtoupper($currentLocale) === $code;
-                                        @endphp
-                                        <li>
-                                            <a href="{{ route('locale.set', $linkCode) }}"
-                                                class="dropdown-item {{ $isActive ? 'active' : '' }}">{{ $name }}</a>
-                                        </li>
+                                        <a href="{{ route('locale.set', strtolower($code)) }}" class="create-item">
+                                            {{ $name }}
+                                        </a>
                                     @endforeach
-                                </ul>
+                                </div>
                             </li>
-                            <li class="nav-item dropdown">
-                                <button class="btn shadow-none nav-link" data-bs-toggle="dropdown">
+                            <li class="nav-item position-relative">
+                                <button type="button" id="user-toggle" class="nav-link"
+                                    style="background:none; border:none; display: flex; align-items: center;">
                                     @if (Auth::user()->avatar)
-                                        <img src="{{ Auth::user()->avatar }}" class="rounded-circle avatar-sm"
+                                        <img src="{{ Auth::user()->avatar }}" class="rounded-circle"
                                             style="width:30px; height:30px; object-fit:cover;">
                                     @else
-                                        <i class="fa-solid fa-circle-user" style="color: #ff85a2;"></i>
+                                        <i class="fa-solid fa-circle-user" style="color: var(--piki-icon-purple);"></i>
                                     @endif
                                 </button>
-                                <div class="dropdown-menu dropdown-menu-end">
+
+                                <div id="user-menu" class="create-menu" style="right: 0;">
                                     @can('admin')
-                                        <a href="{{ route('admin.users') }}" class="dropdown-item"><i
-                                                class="fa-solid fa-user-gear"></i> Admin</a>
-                                        <hr class="dropdown-divider">
+                                        <a href="{{ route('admin.users') }}" class="create-item">
+                                            <i class="fa-solid fa-user-gear me-2"></i>Admin
+                                        </a>
                                     @endcan
-                                    <a href="{{ route('profile.show', Auth::user()->id) }}" class="dropdown-item"><i
-                                            class="fa-solid fa-circle-user"></i> Profile</a>
-                                    <a class="dropdown-item" href="{{ route('logout') }}"
-                                        onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
-                                        <i class="fa-solid fa-right-from-bracket"></i> {{ __('Logout') }}
+
+                                    <a href="{{ route('profile.show', Auth::user()->id) }}" class="create-item">
+                                        <i class="fa-solid fa-circle-user me-2"></i>Profile
                                     </a>
+
+                                    <a href="{{ route('logout') }}" class="create-item"
+                                        onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
+                                        <i class="fa-solid fa-right-from-bracket me-2"></i>{{ __('Logout') }}
+                                    </a>
+
                                     <form id="logout-form" action="{{ route('logout') }}" method="POST"
-                                        class="d-none">@csrf</form>
+                                        class="d-none">
+                                        @csrf
+                                    </form>
                                 </div>
                             </li>
                         @endguest
@@ -360,12 +433,14 @@
     </div>
     <script>
         document.addEventListener("DOMContentLoaded", function() {
+            // 1. 背景のアニメーション（ハートと雲）
             const itemCount = 20;
             const itemClasses = ['heart', 'cloud'];
             const minDuration = 6;
             const maxDuration = 12;
             const minSize = 40;
             const maxSize = 80;
+
             for (let i = 0; i < itemCount; i++) {
                 const item = document.createElement("div");
                 item.classList.add("animated-item", itemClasses[Math.floor(Math.random() * itemClasses.length)]);
@@ -378,37 +453,51 @@
                 item.style.animationDelay = Math.random() * maxDuration + "s";
                 document.body.appendChild(item);
             }
-            const searchIconLink = document.getElementById('search-icon-link');
-            const searchInputContainer = document.getElementById('search-input-container');
-            if (searchIconLink && searchInputContainer) {
-                searchIconLink.addEventListener('click', function(e) {
+
+            // 2. メニュー開閉の共通関数
+            function setupToggle(buttonId, menuId) {
+                const btn = document.getElementById(buttonId);
+                const menu = document.getElementById(menuId);
+
+                if (!btn || !menu) return;
+
+                btn.addEventListener('click', function(e) {
                     e.stopPropagation();
-                    searchInputContainer.classList.toggle('search-active');
-                    if (searchInputContainer.classList.contains('search-active')) {
-                        searchInputContainer.querySelector('input').focus();
+                    // 他の開いているメニューを全部閉じる
+                    document.querySelectorAll('.create-menu').forEach(m => {
+                        if (m !== menu) m.classList.remove('show');
+                    });
+                    // 自分のメニューだけ切り替える
+                    menu.classList.toggle('show');
+
+                    // Searchメニューが開いた時は自動で入力欄にフォーカスを当てる
+                    if (menuId === 'search-menu' && menu.classList.contains('show')) {
+                        const input = menu.querySelector('input');
+                        if (input) input.focus();
                     }
                 });
-                searchInputContainer.addEventListener('click', function(e) {
+            }
+
+            // 3. 各メニューに機能を割り当て
+            setupToggle('create-toggle', 'create-menu');
+            setupToggle('search-toggle', 'search-menu');
+            setupToggle('language-toggle', 'language-menu');
+            setupToggle('user-toggle', 'user-menu');
+
+            // 4. 画面のどこかをクリックしたらメニューを閉じる
+            document.addEventListener('click', function() {
+                document.querySelectorAll('.create-menu').forEach(m => {
+                    m.classList.remove('show');
+                });
+            });
+
+            // 5. メニューの中（入力欄など）をクリックしても閉じないようにする
+            document.querySelectorAll('.create-menu').forEach(m => {
+                m.addEventListener('click', function(e) {
                     e.stopPropagation();
                 });
-                document.addEventListener('click', function() {
-                    searchInputContainer.classList.remove('search-active');
-                });
-            }
+            });
         });
-        const createToggle = document.getElementById('create-toggle');
-        const createMenu = document.getElementById('create-menu');
-
-        if (createToggle && createMenu) {
-            createToggle.addEventListener('click', function(e) {
-                e.stopPropagation();
-                createMenu.classList.toggle('show');
-            });
-
-            document.addEventListener('click', function() {
-                createMenu.classList.remove('show');
-            });
-        }
     </script>
 
 </body>

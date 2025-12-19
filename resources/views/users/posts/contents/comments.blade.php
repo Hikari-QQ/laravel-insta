@@ -54,7 +54,7 @@
 
 <style>
 .comment-input {
-    background-color:#bfeaf2 ; /* 紫色 */
+    background-color:#DFF4F8; 
     border: none;
     border-radius: 15px;
     padding: 6px 12px;

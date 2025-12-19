@@ -4,73 +4,78 @@
 
 @section('content')
 <style>
-/* 背景色はLoginと統一 */
-body {
-    background-color: #FFE4E8; 
-}
+    /* 全体の背景 */
+    body {
+        background-color: #FFE4E8 !important; 
+    }
 
-.register-wrapper {
-    min-height: 80vh;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    padding: 20px 0;
-}
+    .register-wrapper {
+        min-height: 80vh;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 20px 0;
+    }
 
-.register-card {
-    background-color: rgba(255, 255, 255, 0.6);
-    backdrop-filter: blur(5px);
-    border-radius: 20px;
-    border: none;
-    padding: 30px;
-}
+    /* メインカード */
+    .register-card {
+        background-color: rgba(255, 255, 255, 0.6) !important;
+        backdrop-filter: blur(5px);
+        border-radius: 20px;
+        border: none;
+        padding: 40px;
+    }
 
-.register-header-text {
-    color: #ff85a2; /* ハートとタイトルのピンク */
-    font-weight: bold;
-    text-align: center;
-    margin-bottom: 2rem;
-}
+    .register-header-text {
+        color: #ff85a2;
+        font-weight: bold;
+        text-align: center;
+        margin-bottom: 2rem;
+    }
 
-.form-label-cute {
-    color: #C9B3E0; /* ラベルの紫 */
-    font-weight: bold;
-}
+    .form-label-cute {
+        color: #C9B3E0;
+        font-weight: bold;
+        margin-bottom: 0.5rem;
+        display: block;
+    }
 
-/* フォームの色をLoginの #DFF4F8 に統一 */
-.form-control-cute {
-    background-color: #DFF4F8; 
-    border: none;
-    border-radius: 10px;
-    padding: 12px 18px;
-    color: #5f5f5f;
-}
+    /* 【ここが重要】背景色を「透ける白」に強制固定 */
+    .form-control-cute {
+        background-color: rgba(255, 255, 255, 0.4) !important; /* !importantを追加 */
+        border: none !important;
+        border-radius: 10px;
+        padding: 12px 18px;
+        color: #5f5f5f;
+        transition: all 0.3s;
+    }
 
-.form-control-cute:focus {
-    background-color: #d2f0f5; /* フォーカス時の色 */
-    box-shadow: none;
-    outline: none;
-}
+    .form-control-cute:focus {
+        background-color: rgba(255, 255, 255, 0.8) !important; /* フォーカス時も白 */
+        box-shadow: none !important;
+        outline: none;
+    }
 
-/* ボタンの色をLoginの #AEDEFC に統一 */
-.btn-register {
-    background-color: #AEDEFC;
-    color: #4A4A4A;
-    border: none;
-    border-radius: 50px;
-    padding: 12px;
-    font-weight: bold;
-    transition: all 0.3s;
-}
+    /* ボタンの色をCreate Postの btn-post と統一（ここも白に近い水色から水色に変更） */
+    .btn-register {
+        background-color: #DFF4F8 !important;
+        color: #4A4A4A !important;
+        border: none !important;
+        border-radius: 50px;
+        padding: 12px;
+        font-weight: bold;
+        transition: all 0.3s;
+    }
 
-.btn-register:hover {
-    background-color: #9cd4f8;
-    transform: translateY(-2px);
-}
+    .btn-register:hover {
+        background-color: #9cd4f8 !important;
+        transform: translateY(-2px);
+        box-shadow: 0 4px 10px rgba(0,0,0,0.1) !important;
+    }
 
-.heart {
-    color: #ff85a2;
-}
+    .heart {
+        color: #ff85a2;
+    }
 </style>
 
 <div class="register-wrapper">

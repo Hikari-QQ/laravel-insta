@@ -48,18 +48,27 @@
     }
 
     /* Followボタン：水色ベース × ピンク文字（他のボタンと統一） */
+    /* Followボタン：指定の黒っぽい文字色を適用 */
     .btn-follow {
-        background-color: #BFEAF2 !important;
-        color: #F08FB3 !important;
+        /* 背景色を #DFF4F8（RegisterのボタンやCreateのフォームと同じ水色）に設定 */
+        background-color: #DFF4F8 !important; 
+        
+        /* 文字色を指定の #37353E に固定 */
+        color: #37353E !important; 
+        
         border: none !important;
         border-radius: 50px;
         padding: 8px 25px;
         font-weight: 700;
         transition: all 0.3s;
+        text-decoration: none;
+        display: inline-block;
     }
 
     .btn-follow:hover {
-        background-color: #C9ECF3 !important;
+        /* ホバー時は少し濃い水色に */
+        background-color: #BFEAF2 !important; 
+        color: #37353E !important;
         transform: translateY(-2px);
         box-shadow: 0 5px 15px rgba(191, 234, 242, 0.4);
     }

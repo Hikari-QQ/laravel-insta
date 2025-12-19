@@ -92,6 +92,15 @@
         background: #E5D9F2;
         border-radius: 10px;
     }
+    .category-badge {
+    background-color: #DFF4F8; /* 水色 */
+    color: #FF85A2; /* 文字ピンク */
+    font-weight: 500;
+    border-radius: 50px;
+    padding: 5px 12px;
+    font-size: 0.75rem;
+}
+
 </style>
 
 <div class="row show-card shadow-sm mx-auto">
@@ -173,14 +182,15 @@
                 </div>
                 <div class="ms-auto">
                     @if ($post->categoryPost->count() != 0)
-                        @foreach ($post->categoryPost as $category_post)
-                            <span class="badge bg-secondary bg-opacity-50 rounded-pill me-1">
-                                {{ $category_post->category->name }}
-                            </span>
-                        @endforeach
-                    @else
-                        <span class="badge bg-dark text-white rounded-pill">Uncategorized</span>
-                    @endif
+    @foreach ($post->categoryPost as $category_post)
+        <span class="badge category-badge me-1">
+            {{ $category_post->category->name }}
+        </span>
+    @endforeach
+@else
+    <span class="badge category-badge text-pink">Uncategorized</span>
+@endif
+
                 </div>
             </div>
 

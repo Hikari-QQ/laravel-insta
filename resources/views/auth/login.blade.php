@@ -4,6 +4,7 @@
 
 @section('content')
 <style>
+    
 body {
     background-color: #FFE4E8; /* 統一ピンク */
 }
@@ -36,7 +37,7 @@ body {
 }
 
 .form-control-cute {
-    background-color: #DFF4F8; /* 水色統一 */
+    background-color: rgba(255, 255, 255, 0.6) !important; /* 透ける白に変更 */
     border: none;
     border-radius: 10px;
     padding: 12px 18px;
@@ -44,13 +45,14 @@ body {
 }
 
 .form-control-cute:focus {
-    background-color: #d2f0f5; /* 水色フォーカス */
+    background-color: rgba(255, 255, 255, 0.8)!important; /* フォーカス時は少し白く */
     box-shadow: none;
     outline: none;
 }
 
+
 .btn-login {
-    background-color: #AEDEFC; /* ボタン水色 */
+    background-color: #DFF4F8;
     color: #4A4A4A;
     border: none;
     border-radius: 50px;
