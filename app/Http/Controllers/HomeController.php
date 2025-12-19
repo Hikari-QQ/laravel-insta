@@ -88,4 +88,10 @@ class HomeController extends Controller
 
         return view('users.search')->with('users', $users)->with('search', $request->search);
     }
+
+    public function seeAll() {
+        $suggested_users = $this->getSuggestedUsers();
+
+        return view('users.suggestedUsers-all')->with('suggested_users', $suggested_users);
+    }
 }

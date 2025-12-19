@@ -24,6 +24,7 @@ Route::group(['middleware' => 'auth'], function() {
     Route::get('/welcome', [LoginController::class, 'showWelcome'])->name('login.welcome');
     Route::get('/', [HomeController::class, 'index'])->name('index');
     Route::get('/people', [HomeController::class, 'search'])->name('search');
+    Route::get('/seeAll', [HomeController::class, 'seeAll'])->name('seeAll');
     Route::get('locale/{locale}', [LocaleController::class, 'setLocale'])->name('locale.set');
 
     Route::group(['prefix' => 'admin', 'as' => 'admin.', 'middleware' => 'admin'], function() {
