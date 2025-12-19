@@ -4,85 +4,100 @@
 
 @section('content')
 
-<style>
-    /* ストーリー画像：角丸・白枠・影 */
-    .story-image-cute {
-        height: 75vh;
-        object-fit: cover;
-        border-radius: 35px;
-        border: 8px solid #fff;
-        box-shadow: 0 10px 30px rgba(240, 143, 179, 0.4);
-        transition: transform 0.3s ease;
-    }
+    <style>
+        /* ストーリー画像：角丸・白枠・影 */
+        .story-image-cute {
+            height: 75vh;
+            object-fit: cover;
+            border-radius: 35px;
+            border: 8px solid #fff;
+            box-shadow: 0 10px 30px rgba(240, 143, 179, 0.4);
+            transition: transform 0.3s ease;
+        }
 
-    /* ホバー時：少し大きくする */
-    .story-image-cute:hover {
-        transform: scale(1.02);
-    }
+        /* ホバー時：少し大きくする */
+        .story-image-cute:hover {
+            transform: scale(1.02);
+        }
 
-    /* ユーザー情報の帯：半透明・カプセル型 */
-    .user-info-capsule {
-        background: rgba(255, 255, 255, 0.85);
-        backdrop-filter: blur(5px);
-        padding: 10px 25px 10px 15px;
-        border-radius: 50px;
-        box-shadow: 0 5px 15px rgba(0,0,0,0.05);
-        display: inline-flex;
-        align-items: center;
-        gap: 15px;
-    }
+        /* ユーザー情報の帯：半透明・カプセル型 */
+        .user-info-capsule {
+            background: rgba(255, 255, 255, 0.85);
+            backdrop-filter: blur(5px);
+            padding: 10px 25px 10px 15px;
+            border-radius: 50px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            display: inline-flex;
+            align-items: center;
+            gap: 15px;
+        }
 
-    /* ユーザー名：ピンク・太字 */
-    .story-username {
-        color: #F08FB3;
-        font-weight: 800;
-        letter-spacing: 1px;
-        margin-bottom: 0;
-    }
+        /* ユーザー名：ピンク・太字 */
+        .story-username {
+            color: #F08FB3;
+            font-weight: 800;
+            letter-spacing: 1px;
+            margin-bottom: 0;
+        }
 
-    /* 削除ボタン：丸型・ホバーで回転 */
-    .btn-delete-cute {
-        width: 36px;
-        height: 36px;
-        border-radius: 50%;
-        background-color: #FBEFEF;
-        color: #E46A9A;
-        border: none;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        transition: all 0.2s;
-    }
+        /* 削除ボタン：丸型・ホバーで回転 */
+        .btn-delete-cute {
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            background-color: #FBEFEF;
+            color: #E46A9A;
+            border: none;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.2s;
+        }
 
-    .btn-delete-cute:hover {
-        background-color: #E46A9A;
-        color: white;
-        transform: rotate(15deg);
-    }
+        .btn-delete-cute:hover {
+            background-color: #E46A9A;
+            color: white;
+            transform: rotate(15deg);
+        }
 
-    /* アイコン周りのグラデーションリング */
-    .story-avatar-ring {
-        padding: 2px;
-        background: linear-gradient(45deg, #F08FB3, #BFEAF2);
-        border-radius: 50%;
-        display: inline-block;
-    }
-</style>
+        /* アイコン周りのグラデーションリング */
+        .story-avatar-ring {
+            padding: 2px;
+            background: linear-gradient(45deg, #F08FB3, #BFEAF2);
+            border-radius: 50%;
+            display: inline-block;
+        }
+    </style>
 
     <div class="story-page text-dark d-flex flex-column justify-content-center align-items-center" style="height:100vh;">
 
         <div class="mb-4 text-center">
-            <img id="story-image" src="{{ $story->story_image }}" class="img-fluid story-image-cute">
+            @php
+                $extension = pathinfo($story->story_image, PATHINFO_EXTENSION);
+                $videoExtensions = ['mp4', 'mov', 'webm'];
+            @endphp
+
+            @if (in_array(strtolower($extension), $videoExtensions))
+                {{-- 動画の場合：自動再生・ループ・ミュート --}}
+                <video id="story-video" src="{{ $story->story_image }}" class="story-image-cute" autoplay muted loop
+                    playsinline>
+                </video>
+            @else
+                {{-- 画像の場合 --}}
+                <img id="story-image" src="{{ $story->story_image }}" class="img-fluid story-image-cute">
+            @endif
         </div>
 
         <div class="user-info-capsule">
-            
+
             <a href="{{ route('profile.show', $story->user->id) }}" class="story-avatar-ring">
                 @if ($story->user->avatar)
                     <img src="{{ $story->user->avatar }}" alt="{{ $story->user->name }}"
-                        class="rounded-circle border border-2 border-white" width="40" height="40" style="object-fit: cover;">
+                        class="rounded-circle border border-2 border-white" width="40" height="40"
+                        style="object-fit: cover;">
                 @else
-                    <i class="fa-solid fa-circle-user text-pink icon-md bg-white rounded-circle" style="font-size: 40px;"></i>
+                    <i class="fa-solid fa-circle-user text-pink icon-md bg-white rounded-circle"
+                        style="font-size: 40px;"></i>
                 @endif
             </a>
 
@@ -103,6 +118,14 @@
     <script>
         // 次のストーリー、またはホームのURL
         const nextStoryUrl = @json($nextStory ? route('stories.show', $nextStory->id) : route('index'));
+
+        // 動画がある場合、その動画が終わったタイミングで次へ
+        const video = document.getElementById('story-video');
+        if (video) {
+            video.onended = () => {
+                window.location.href = nextStoryUrl;
+            };
+        }
 
         // 10秒経ったら自動で次のストーリーへ移動
         setTimeout(() => {

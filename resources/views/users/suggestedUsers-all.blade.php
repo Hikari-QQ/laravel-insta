@@ -3,22 +3,10 @@
 @section('title', 'Suggested Users')
 
 @section('content')
-了解いたしました！ユーザー名を少し落ち着いた**「#37353E（チャコールグレー）」**に変更して、全体的に甘すぎない、引き締まった大人かわいいデザインに整えますね。
-
-あわせて、背景の「透けている白（rgba(255, 255, 255, 0.6)）」を、これまでの画面と統一感が出るように**「真っ白な浮遊感のあるカード」**にアップデートします♡
-
-✨ Updated: Suggested Users (大人かわいいVer.)
-HTML
-
-@extends('layouts.app')
-
-@section('title', 'Suggested Users')
-
-@section('content')
 <style>
     /* 全体を白背景に固定 */
     body, #app, main {
-        background-color: #ffffff !important;
+        background-color: #FBEFEF !important;
     }
 
     /* 検索・おすすめコンテナ：真っ白なカードが浮いているデザイン */
@@ -78,7 +66,7 @@ HTML
 
     /* タイトル部分 */
     .search-title {
-        color: #37353E;
+        color: var(--piki-gray-main);
         font-weight: 800;
         letter-spacing: 1px;
         border-bottom: 3px dashed #BFEAF2; /* 水色の点線 */

@@ -21,7 +21,7 @@ class StoryController extends Controller
     public function store(Request $request)
     {
     $request->validate([
-        'story_image' => 'required||mimes:jpeg,jpg,png,gif|max:1048' 
+        'story_image' => 'required|mimes:jpg,jpeg,png,mp4,mov|max:20000'
     ]);
 
     $this->story->user_id = Auth::user()->id;
