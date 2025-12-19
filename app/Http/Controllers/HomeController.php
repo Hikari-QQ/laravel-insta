@@ -38,7 +38,14 @@ class HomeController extends Controller
         // return view('users.home')->with('all_posts', $all_posts);
         $home_posts = $this->getHomePosts();
         $suggested_users = $this->getSuggestedUsers();
-        $home_stories = Story::where('expires_at', '>', now())->get();
+        
+        $stories = Story::where('expires_at', '>', now())
+        ->with('user')
+        ->orderBy('id', 'asc')
+        ->get();
+
+        $home_stories = $stories->groupBy('user_id');
+        
         return view('users.home')
                 ->with('home_posts', $home_posts)
                 ->with('suggested_users', $suggested_users)

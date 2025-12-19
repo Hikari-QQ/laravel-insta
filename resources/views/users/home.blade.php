@@ -121,14 +121,28 @@
     
     {{-- stories --}}
     <div class="story-bar d-flex overflow-auto p-2">
-        @foreach ($home_stories as $story)
-            <a href="{{ route('stories.show', $story->id) }}"
-                class="story-item text-center mx-2 text-decoration-none text-dark"> <img src="{{ $story->user->avatar }}"
-                    class="rounded-circle" width="70" height="70">
-                <p class="small">{{ $story->user->name }}</p>
-            </a>
-        @endforeach
-    </div>
+    @foreach ($home_stories as $userId => $stories)
+        @php
+            $first_story = $stories->first();
+        @endphp
+
+        <a href="{{ route('stories.show', $first_story->id) }}"
+            class="story-item text-center mx-2 text-decoration-none text-dark"
+            style="min-width: 80px;"> 
+            
+            <div class="position-relative d-inline-block">
+                <img src="{{ $first_story->user->avatar }}"
+                    class="rounded-circle border border-3 border-danger p-1" 
+                    width="70" height="70"
+                    style="object-fit: cover;">
+            </div>
+            
+            <p class="small mt-1 text-truncate" style="max-width: 70px;">
+                {{ $first_story->user->name }}
+            </p>
+        </a>
+    @endforeach
+</div>
     {{-- main --}}
     <div class="row gx-5">
         <div class="col-8">
@@ -214,13 +228,13 @@
                         <div class="row">
                             <div class="col text-center mt-0 mb-0">
                                 <p class="text-muted small">
-                                    @translate('and {{ count($suggested_users) - 5 }} others...')
+                                    @translate('and ', (count($suggested_users) - 5),  ' others...')
                                 </p>
                             </div>
                         </div>
                         <div class="row">
                             <div class="col  mt-0 mb-0">
-                                <a href="{{ route('seeAll') }}" class="see-all-text d-flex align-items-center text-decoration-none justify-content-center"
+                                <a href="{{ route('seeAll') }}" class="see-all-text d-flex align-items-center justify-content-center"
                                     style="gap:4px; white-space: nowrap;">
                                     <svg class="suggestion-heart" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 640">
                                         <path
