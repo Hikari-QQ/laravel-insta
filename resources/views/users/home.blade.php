@@ -75,21 +75,27 @@
     /* Follow ボタン（水色・ボタン風） */
     /* Follow ボタン（水色ベース × 指定の黒っぽい文字色 #37353E） */
     .follow-btn {
-        background-color: #DFF4F8 !important; /* Registerのフォーム等と同じ明るい水色 */
-        color: #37353E !important;            /* 指定の黒っぽい色 */
+        background-color: #DFF4F8 !important;
+        /* Registerのフォーム等と同じ明るい水色 */
+        color: #37353E !important;
+        /* 指定の黒っぽい色 */
         border: none !important;
         border-radius: 20px;
-        padding: 5px 16px;                     /* 少しだけ余白を調整 */
+        padding: 5px 16px;
+        /* 少しだけ余白を調整 */
         font-size: 0.75rem;
-        font-weight: 700;                      /* 太字にして視認性アップ */
+        font-weight: 700;
+        /* 太字にして視認性アップ */
         transition: all 0.3s ease;
         cursor: pointer;
     }
 
     .follow-btn:hover {
-        background-color: #BFEAF2 !important; /* ホバー時は少しだけ濃い水色 */
+        background-color: #BFEAF2 !important;
+        /* ホバー時は少しだけ濃い水色 */
         color: #37353E !important;
-        transform: translateY(-1px);          /* 軽く浮き上がる演出 */
+        transform: translateY(-1px);
+        /* 軽く浮き上がる演出 */
         box-shadow: 0 4px 8px rgba(191, 234, 242, 0.4);
     }
 
@@ -124,31 +130,32 @@
     }
 </style>
 @section('content')
-    
+
     {{-- stories --}}
     <div class="story-bar d-flex overflow-auto p-2">
-    @foreach ($home_stories as $userId => $stories)
-        @php
-            $first_story = $stories->first();
-        @endphp
+        @foreach ($home_stories as $userId => $stories)
+            @php
+                $first_story = $stories->first();
+            @endphp
 
-        <a href="{{ route('stories.show', $first_story->id) }}"
-            class="story-item text-center mx-2 text-decoration-none text-dark"
-            style="min-width: 80px;"> 
-            
-            <div class="position-relative d-inline-block">
-                <img src="{{ $first_story->user->avatar }}"
-                    class="rounded-circle border border-3 border-danger p-1" 
-                    width="70" height="70"
-                    style="object-fit: cover;">
-            </div>
-            
-            <p class="small mt-1 text-truncate" style="max-width: 70px;">
-                {{ $first_story->user->name }}
-            </p>
-        </a>
-    @endforeach
-</div>
+            <a href="{{ route('stories.show', $first_story->id) }}"
+                class="story-item text-center mx-2 text-decoration-none text-dark" style="min-width: 80px;">
+
+                @if ($first_story->user->avatar)
+                    <div class="position-relative d-inline-block">
+                        <img src="{{ $first_story->user->avatar }}" class="rounded-circle border border-3 border-danger p-1"
+                            width="70" height="70" style="object-fit: cover;">
+                    </div>
+                @else
+                    <i class="fa-solid fa-circle-user text-pink" style="font-size: 70px;"></i>
+                @endif
+
+                <p class="small mt-1 text-truncate" style="max-width: 70px;">
+                    {{ $first_story->user->name }}
+                </p>
+            </a>
+        @endforeach
+    </div>
     {{-- main --}}
     <div class="row gx-5">
         <div class="col-8">
@@ -190,7 +197,7 @@
                     {{-- タイトル行 --}}
                     <div class="row suggestion-title-container" style="margin-bottom:16px;">
                         <div class="col-12">
-                        {{-- 左: Suggestion For You --}}
+                            {{-- 左: Suggestion For You --}}
                             <p class="suggestion-title-text text-decoration-none justify-content-center">
                                 <svg class="suggestion-heart" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 640">
                                     <path
@@ -234,13 +241,14 @@
                         <div class="row">
                             <div class="col text-center mt-0 mb-0">
                                 <p class="text-muted small">
-                                    @translate('and ', (count($suggested_users) - 5),  ' others...')
+                                    @translate('and ', count($suggested_users) - 5, ' others...')
                                 </p>
                             </div>
                         </div>
                         <div class="row">
                             <div class="col  mt-0 mb-0">
-                                <a href="{{ route('seeAll') }}" class="see-all-text d-flex align-items-center justify-content-center"
+                                <a href="{{ route('seeAll') }}"
+                                    class="see-all-text d-flex align-items-center justify-content-center"
                                     style="gap:4px; white-space: nowrap;">
                                     <svg class="suggestion-heart" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 640">
                                         <path
