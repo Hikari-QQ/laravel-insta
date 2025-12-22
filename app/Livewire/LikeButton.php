@@ -30,7 +30,7 @@ class LikeButton extends Component
             ]);
         }
 
-        $this->post->load('likes');
+        $this->post->load('likes.user');
     }
 
     public function render()
