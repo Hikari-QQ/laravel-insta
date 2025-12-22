@@ -5,9 +5,9 @@
 <div class="card-body p-3">
     <div class="d-flex align-items-center mb-2">
         {{-- 元の form ボタンを消して、これに書き換え --}}
-<div class="d-flex align-items-center">
-    @livewire('like-button', ['post' => $post], key('like-'.$post->id))
-</div>
+        <div class="d-flex align-items-center">
+            @livewire('like-button', ['post' => $post], key('like-' . $post->id))
+        </div>
         <div>
             {{-- <span class="like-count">{{ $post->likes->count() }}</span> --}}
         </div>
