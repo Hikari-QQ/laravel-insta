@@ -325,7 +325,7 @@
                             <li class="nav-item"><a class="nav-link" href="{{ route('login') }}">Login</a></li>
                             <li class="nav-item"><a class="nav-link" href="{{ route('register') }}">Register</a></li>
                         @else
-                            <li class="nav-item mx-1">
+                            <li class="nav-item">
                                 <a href="{{ route('index') }}" class="nav-link">
                                     <i class="fa-solid fa-house"></i>
                                 </a>
@@ -340,6 +340,18 @@
                                     <a href="{{ route('post.create') }}" class="create-item">Post</a>
                                     <a href="{{ route('stories.create') }}" class="create-item">Story</a>
                                 </div>
+                            </li>
+
+                            <li class="nav-item" title="DirectMessage">
+                                <a href="{{ route('message.show') }}" class="nav-link position-relative">
+                                    <i class="fa-regular fa-paper-plane"></i>
+
+                                    <span id="nav-unread-dot"
+                                        class="position-absolute translate-middle p-1 rounded-circle {{ (isset($global_unread_count) && $global_unread_count > 0) ? '' : 'd-none' }}"
+                                        style="background-color: #ff85a2; top: 12px; left: 80%;">
+                                        <span class="visually-hidden">New alerts</span>
+                                    </span>
+                                </a>
                             </li>
 
                             @if (!request()->is('admin/*'))
@@ -401,8 +413,7 @@
                                         <i class="fa-solid fa-right-from-bracket me-2"></i>{{ __('Logout') }}
                                     </a>
 
-                                    <form id="logout-form" action="{{ route('logout') }}" method="POST"
-                                        class="d-none">
+                                    <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
                                         @csrf
                                     </form>
                                 </div>
@@ -432,7 +443,7 @@
         </main>
     </div>
     <script>
-        document.addEventListener("DOMContentLoaded", function() {
+        document.addEventListener("DOMContentLoaded", function () {
             // 1. 背景のアニメーション（ハートと雲）
             const itemCount = 20;
             const itemClasses = ['heart', 'cloud'];
@@ -461,7 +472,7 @@
 
                 if (!btn || !menu) return;
 
-                btn.addEventListener('click', function(e) {
+                btn.addEventListener('click', function (e) {
                     e.stopPropagation();
                     // 他の開いているメニューを全部閉じる
                     document.querySelectorAll('.create-menu').forEach(m => {
@@ -485,7 +496,7 @@
             setupToggle('user-toggle', 'user-menu');
 
             // 4. 画面のどこかをクリックしたらメニューを閉じる
-            document.addEventListener('click', function() {
+            document.addEventListener('click', function () {
                 document.querySelectorAll('.create-menu').forEach(m => {
                     m.classList.remove('show');
                 });
@@ -493,11 +504,30 @@
 
             // 5. メニューの中（入力欄など）をクリックしても閉じないようにする
             document.querySelectorAll('.create-menu').forEach(m => {
-                m.addEventListener('click', function(e) {
+                m.addEventListener('click', function (e) {
                     e.stopPropagation();
                 });
             });
         });
+
+        function checkUnreadCount() {
+            fetch("{{ route('message.unreadCount') }}")
+                .then(res => res.json())
+                .then(data => {
+                    const dot = document.getElementById('nav-unread-dot');
+                    if (!dot) return;
+
+                    if (data.unread_count > 0) {
+                        dot.classList.remove('d-none'); // 未読があれば表示
+                    } else {
+                        dot.classList.add('d-none');    // 未読がなければ隠す
+                    }
+                })
+                .catch(err => console.error("Error fetching unread count:", err));
+        }
+
+        // 5秒ごとにチェック（3秒より少し余裕を持たせるとサーバーに優しいです）
+        setInterval(checkUnreadCount, 5000);
     </script>
 
 </body>
