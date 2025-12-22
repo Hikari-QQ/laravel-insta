@@ -21,7 +21,8 @@
                     class="img-thumbnail rounded-circle d-block mx-auto avatar-lg object-fit-cover">
             </a>
         @else
-            <i class="fa-solid fa-circle-user text-secondary d-block text-center icon-lg"></i>
+<i class="fa-solid fa-circle-user" style="font-size: 150px; color: #F08FB3;"></i>
+
         @endif
     </div>
     <div class="col-8">

@@ -35,7 +35,14 @@
         /* 一列に */
         margin: 0;
     }
-
+    .home-post-card {
+        background-color: #ffffff;
+        border: 1px solid #eee; /* 薄い境界線 */
+        border-radius: 8px;    /* 四角に近い角丸 */
+        margin-bottom: 24px;   /* 投稿ごとの間隔 */
+        box-shadow: 0 2px 5px rgba(0,0,0,0.05); /* 控えめな影 */
+        overflow: hidden;      /* 中身がはみ出さないように */
+    }q
     /* See all（文字薄ピンク・♡水色） */
     .see-all-container {
         display: flex;
@@ -157,21 +164,22 @@
         @endforeach
     </div>
     {{-- main --}}
-    <div class="row gx-5">
-        <div class="col-8">
-            @forelse ($home_posts as $post)
-                <div class="card mb-4">
-                    @include('users.posts.contents.title')
-                    @include('users.posts.contents.body')
-                </div>
-            @empty
-                <div class="text-center">
-                    <h2>@translate('Share Photos')</h2>
-                    <p class="text-secondary">@translate('When you share photos, they\'ll appear on your profile.')</p>
-                    <a href="#" class="text-decoration-none">@translate('Share your first photo')</a>
-                </div>
-            @endforelse
-        </div>
+   <div class="row gx-5">
+    {{-- メイン：ポスト（投稿）エリア --}}
+    <div class="col-8">
+        @forelse ($home_posts as $post)
+            {{-- ここを四角いデザインに包んでいます --}}
+            <div class="home-post-card">
+                @include('users.posts.contents.title')
+                @include('users.posts.contents.body')
+            </div>
+        @empty
+            <div class="home-post-card p-5 text-center">
+                <h2 class="icon-pink">Share Photos</h2>
+                <p class="text-secondary">When you share photos, they'll appear on your profile.</p>
+            </div>
+        @endforelse
+    </div>
         <div class="col-4 ">
             {{-- Profile Overview --}}
             <div class="row align-items-center mb-5 bg-white shadow-sm rounded-3 py-3">

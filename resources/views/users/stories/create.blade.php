@@ -6,7 +6,7 @@
 <style>
     /* 全体の背景をLogin/Post作成画面と統一 */
     body {
-        background-color: #FFE4E8;
+        background-color: #FBEFEF;
     }
 
     .story-container {
@@ -86,7 +86,7 @@
     }
 
     .heart {
-        color: #ff85a2;
+        color: #BFEAF2;
     }
 </style>
 
