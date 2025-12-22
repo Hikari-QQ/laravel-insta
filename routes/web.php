@@ -14,6 +14,7 @@ use App\Http\Controllers\Auth\LoginController;
 #Admin Controller
 use App\Http\Controllers\Admin\UsersController;
 use App\Http\Controllers\LocaleController;
+use App\Http\Controllers\MessageController;
 use App\Http\Controllers\StoryController;
 
 Auth::routes();
@@ -78,5 +79,9 @@ Route::group(['middleware' => 'auth'], function() {
     Route::get('/stories/{story}', [StoryController::class, 'show'])->name('stories.show');
     Route::delete('/stories/{story_id}/destroy', [StoryController::class, 'destroy'])->name('stories.destroy');
 
-
+    #MESSAGE
+    Route::post('/message/send', [MessageController::class, 'send'])->name('message.send');
+    Route::get('/message/fetch/{id}', [MessageController::class, 'fetchMessages'])->name('message.fetch');
+    Route::get('/message/unread-count', [MessageController::class, 'getUnreadCount'])->name('message.unreadCount');
+    Route::get('/message/{id?}', [MessageController::class, 'show'])->name('message.show');
 });

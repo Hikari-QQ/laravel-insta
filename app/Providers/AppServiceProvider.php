@@ -8,6 +8,10 @@ use Illuminate\Support\ServiceProvider;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\Blade;
 use Illuminate\Support\Facades\Session;
+use Illuminate\Support\Facades\View;
+use Illuminate\Support\Facades\Auth;
+use App\Models\Message;
+
 
 
 class AppServiceProvider extends ServiceProvider
@@ -60,6 +64,16 @@ class AppServiceProvider extends ServiceProvider
                     }
                 }
             ?>";
+        });
+
+        // すべてのビューに未読カウントを渡す
+        View::composer('*', function ($view) {
+            if (Auth::check()) {
+                $unreadCount = Message::where('receiver_id', Auth::id())
+                    ->where('is_read', false)
+                    ->count();
+                $view->with('global_unread_count', $unreadCount);
+            }
         });
     }
 }
