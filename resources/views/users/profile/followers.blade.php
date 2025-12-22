@@ -1,128 +1,131 @@
 @extends('layouts.app')
 
-@section('title', $user->name)
+@section('title', 'Followers')
 
 @section('content')
-
 <style>
-    /* タイトルの装飾 */
-.follower-title {
-    color: #F08FB3;
-    font-weight: bold;
-    margin-bottom: 30px;
-    text-shadow: 1px 1px 0px #fff;
-}
+    /* 全体背景 */
+    body, #app, main {
+        background-color: #FBEFEF !important;
+    }
 
-/* フォロワーリストを包む白いカード */
-.follower-list-card {
-    background: rgba(255, 255, 255, 0.8); /* 少し透ける白 */
-    border-radius: 30px;
-    padding: 30px;
-    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.05);
-    border: 2px solid #FBEFEF;
-}
+    /* タイトル装飾：下線なし・水色ハート */
+    .suggestion-title-text {
+        color: #F08FB3; /* ピンクの文字 */
+        font-weight: bold;
+        text-decoration: none !important; /* 下線を消去 */
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 10px;
+        margin-bottom: 25px;
+        font-size: 1.5rem;
+    }
 
-/* 各ユーザー行のホバー効果 */
-.follower-item {
-    transition: all 0.2s ease;
-    border-radius: 20px;
-    padding: 10px;
-}
-.follower-item:hover {
-    background-color: #FFF9FA;
-}
+    /* ハートの色：水色 */
+    .icon-blue-light {
+        color: #BFEAF2;
+    }
 
-/* アバターのリング装飾 */
-.avatar-ring {
-    padding: 3px;
-    background: linear-gradient(45deg, #f983ff, #66fff5);
-    border-radius: 50%;
-    display: inline-block;
-}
+    /* リストを包む四角いカード */
+    .follow-list-card-square {
+        background: #ffffff;
+        border-radius: 8px; 
+        padding: 20px;
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+        border: 1px solid #eee;
+    }
 
-/* フォローボタン（水色） */
-.btn-follow-cute {
-    background-color: #BFEAF2 !important;
-    color: #4B8FA1 !important;
-    border: none !important;
-    border-radius: 50px !important;
-    font-weight: bold;
-    font-size: 0.8rem;
-    padding: 5px 15px !important;
-    box-shadow: 0 4px 10px rgba(191, 234, 242, 0.4);
-}
+    /* 各ユーザー行 */
+    .follow-item {
+        transition: all 0.2s ease;
+        border-radius: 4px;
+        padding: 10px;
+    }
+    .follow-item:hover {
+        background-color: #FBEFEF;
+    }
 
-/* フォロー中ボタン（グレー/白） */
-.btn-following-cute {
-    background-color: #f8f9fa !important;
-    color: #adb5bd !important;
-    border: 1px solid #dee2e6 !important;
-    border-radius: 50px !important;
-    font-weight: bold;
-    font-size: 0.8rem;
-    padding: 5px 15px !important;
-}
+    /* フォローボタン（水色背景 × 黒文字 #37353E × 四角） */
+    .btn-follow-square {
+        background-color: #DFF4F8 !important; 
+        color: #37353E !important;           
+        border: none !important;
+        border-radius: 4px !important;       
+        font-weight: bold;
+        font-size: 0.75rem;
+        padding: 5px 15px !important;
+        transition: all 0.3s;
+    }
+
+    /* 解除ボタン（Following表示） */
+    .btn-following-square {
+        background-color: #f8f9fa !important;
+        color: #adb5bd !important;
+        border: 1px solid #dee2e6 !important;
+        border-radius: 4px !important;
+        font-weight: bold;
+        font-size: 0.75rem;
+        padding: 5px 15px !important;
+    }
+
+    /* デフォルトアイコンの色（ピンク） */
+    .text-pink {
+        color: #F08FB3;
+    }
 </style>
-    
-    @include('users.profile.header')
 
-    <div class="container" style="margin-top: 60px">
-        @if ($user->followers->isNotEmpty())
-            <div class="row justify-content-center">
-                <div class="col-md-6 col-lg-5">
-                    <h3 class="text-center follower-title">
-                        <i class="fa-solid fa-heart me-2"></i>Followers
-                    </h3>
-                    
-                    <div class="follower-list-card">
-                        @foreach ($user->followers as $follow)
-                            <div class="row align-items-center mb-3 follower-item">
-                                {{-- 左：アバター --}}
-                                <div class="col-auto">
-                                    <a href="{{ route('profile.show', $follow->follower->id) }}" class="avatar-ring">
-                                        @if ($follow->follower->avatar)
-                                            <img src="{{ $follow->follower->avatar }}" alt="{{ $follow->follower->name }}"
-                                                class="rounded-circle avatar-md border border-white border-2">
-                                        @else
-                                            <i class="fa-solid fa-circle-user text-pink icon-md bg-white rounded-circle"></i>
-                                        @endif
-                                    </a>
-                                </div>
+@include('users.profile.header')
 
-                                {{-- 中央：ユーザー名 --}}
-                                <div class="col ps-2 text-truncate">
-                                    <a href="{{ route('profile.show', $follow->follower->id) }}"
-                                        class="text-decoration-none text-dark fw-bold" style="font-size: 0.95rem;">
-                                        {{ $follow->follower->name }}
-                                    </a>
-                                </div>
+<div class="container" style="margin-top: 60px">
+    <div class="row justify-content-center">
+        <div class="col-md-6 col-lg-5">
+            {{-- タイトル：水色のハート --}}
+            <div class="suggestion-title-text">
+                <i class="fa-solid fa-heart icon-blue-light"></i>
+                Followers
+                <i class="fa-solid fa-heart icon-blue-light"></i>
+            </div>
 
-                                {{-- 右：ボタン --}}
-                                <div class="col-auto text-end">
-                                    @if(Auth::user()->id !== $follow->follower->id)
-                                        @if ($follow->follower->isFollowed())
-                                            <form action="{{ route('follow.destroy', $follow->follower->id) }}" method="post">
-                                                @csrf
-                                                @method('DELETE')
-                                                <button type="submit" class="btn btn-following-cute">Following</button>
-                                            </form>
-                                        @else
-                                            <form action="{{ route('follow.store', $follow->follower->id) }}" method="post">
-                                                @csrf
-                                                <button type="submit" class="btn btn-follow-cute">Follow</button>
-                                            </form>
-                                        @endif
-                                    @endif
-                                </div>
-                            </div>
-                        @endforeach
+            <div class="follow-list-card-square">
+                @forelse ($user->followers as $follow)
+                    <div class="row align-items-center mb-2 follow-item">
+                        <div class="col-auto">
+                            <a href="{{ route('profile.show', $follow->follower->id) }}">
+                                @if ($follow->follower->avatar)
+                                    <img src="{{ $follow->follower->avatar }}" class="rounded-circle" width="45" height="45" style="object-fit: cover;">
+                                @else
+                                    <i class="fa-solid fa-circle-user text-pink" style="font-size: 45px;"></i>
+                                @endif
+                            </a>
+                        </div>
+                        <div class="col ps-2 text-truncate">
+                            <a href="{{ route('profile.show', $follow->follower->id) }}" class="text-decoration-none text-dark fw-bold" style="font-size: 0.9rem;">
+                                {{ $follow->follower->name }}
+                            </a>
+                        </div>
+                        <div class="col-auto text-end">
+                            @if(Auth::id() !== $follow->follower->id)
+                                @if ($follow->follower->isFollowed())
+                                    <form action="{{ route('follow.destroy', $follow->follower->id) }}" method="post">
+                                        @csrf
+                                        @method('DELETE')
+                                        <button type="submit" class="btn btn-following-square">Following</button>
+                                    </form>
+                                @else
+                                    <form action="{{ route('follow.store', $follow->follower->id) }}" method="post">
+                                        @csrf
+                                        <button type="submit" class="btn btn-follow-square">Follow</button>
+                                    </form>
+                                @endif
+                            @endif
+                        </div>
                     </div>
-                </div>
+                @empty
+                    <p class="text-center text-muted mb-0 py-3">No followers yet.</p>
+                @endforelse
             </div>
-        @else
-            <div class="text-center" style="margin-top: 100px;">
-                <h3 class="follower-title">☁️ No Followers Yet ☁️</h3>
-            </div>
-        @endif
+        </div>
     </div>
+</div>
 @endsection

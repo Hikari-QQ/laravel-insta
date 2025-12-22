@@ -6,7 +6,7 @@
 <style>
     /* 全体の背景 */
     body {
-        background-color: #FFE4E8;
+        background-color: #FBEFEF;
     }
 
     .create-container {
@@ -91,7 +91,7 @@
     }
 
     .heart {
-        color: #ff85a2;
+        color: #BFEAF2;
     }
 </style>
 
