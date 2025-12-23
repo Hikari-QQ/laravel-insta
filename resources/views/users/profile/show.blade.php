@@ -17,9 +17,6 @@
     object-fit: cover;
     border-radius: 25px;
     transition: all 0.3s ease;
-    border: 6px solid #31d7f0;
-    outline: 3px dashed #f74f87;
-    outline-offset: -12px;
     box-shadow: 
         5px 5px 0px 0px #FBEFEF,
         8px 8px 10px rgba(0,0,0,0.1);

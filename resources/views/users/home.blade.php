@@ -35,14 +35,23 @@
         /* 一列に */
         margin: 0;
     }
+
     .home-post-card {
         background-color: #ffffff;
-        border: 1px solid #eee; /* 薄い境界線 */
-        border-radius: 8px;    /* 四角に近い角丸 */
-        margin-bottom: 24px;   /* 投稿ごとの間隔 */
-        box-shadow: 0 2px 5px rgba(0,0,0,0.05); /* 控えめな影 */
-        overflow: hidden;      /* 中身がはみ出さないように */
-    }q
+        border: 1px solid #eee;
+        /* 薄い境界線 */
+        border-radius: 8px;
+        /* 四角に近い角丸 */
+        margin-bottom: 24px;
+        /* 投稿ごとの間隔 */
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+        /* 控えめな影 */
+        overflow: hidden;
+        /* 中身がはみ出さないように */
+    }
+
+    q
+
     /* See all（文字薄ピンク・♡水色） */
     .see-all-container {
         display: flex;
@@ -103,7 +112,7 @@
         color: #37353E !important;
         transform: translateY(-1px);
         /* 軽く浮き上がる演出 */
-        
+
         box-shadow: 0 4px 8px rgba(191, 234, 242, 0.4);
     }
 
@@ -141,46 +150,47 @@
 
     {{-- stories --}}
     <div class="story-bar d-flex overflow-auto p-2">
-        @foreach ($home_stories as $userId => $stories)
-            @php
-                $first_story = $stories->first();
-            @endphp
-
+    @foreach ($home_stories as $userId => $stories)
+        @php
+            $first_story = $stories->first();
+        @endphp
             <a href="{{ route('stories.show', $first_story->id) }}"
-                class="story-item text-center mx-2 text-decoration-none text-dark" style="min-width: 80px;">
+               class="story-item text-decoration-none text-dark d-flex flex-column align-items-center justify-content-center mx-2"
+               style="min-width: 80px;">
 
                 @if ($first_story->user->avatar)
-                    <div class="position-relative d-inline-block">
-                        <img src="{{ $first_story->user->avatar }}" class="rounded-circle border border-3 border-danger p-1"
-                            width="70" height="70" style="object-fit: cover;">
-                    </div>
+                    <img src="{{ $first_story->user->avatar }}"
+                         class="rounded-circle"
+                         width="70" height="70"
+                         style="object-fit: cover;">
                 @else
-                    <i class="fa-solid fa-circle-user text-pink" style="font-size: 70px;"></i>
+                    <i class="fa-solid fa-circle-user text-pink"
+                       style="font-size: 70px; line-height: 70px;"></i>
                 @endif
 
-                <p class="small mt-1 text-truncate" style="max-width: 70px;">
+                <p class="small mt-1 text-truncate text-center" style="max-width: 70px;">
                     {{ $first_story->user->name }}
                 </p>
             </a>
-        @endforeach
-    </div>
+    @endforeach
+</div>
     {{-- main --}}
-   <div class="row gx-5">
-    {{-- メイン：ポスト（投稿）エリア --}}
-    <div class="col-8">
-        @forelse ($home_posts as $post)
-            {{-- ここを四角いデザインに包んでいます --}}
-            <div class="home-post-card">
-                @include('users.posts.contents.title')
-                @include('users.posts.contents.body')
-            </div>
-        @empty
-            <div class="home-post-card p-5 text-center">
-                <h2 class="icon-pink">Share Photos</h2>
-                <p class="text-secondary">When you share photos, they'll appear on your profile.</p>
-            </div>
-        @endforelse
-    </div>
+    <div class="row gx-5">
+        {{-- メイン：ポスト（投稿）エリア --}}
+        <div class="col-8">
+            @forelse ($home_posts as $post)
+                {{-- ここを四角いデザインに包んでいます --}}
+                <div class="home-post-card">
+                    @include('users.posts.contents.title')
+                    @include('users.posts.contents.body')
+                </div>
+            @empty
+                <div class="home-post-card p-5 text-center">
+                    <h2 class="icon-pink">Share Photos</h2>
+                    <p class="text-secondary">When you share photos, they'll appear on your profile.</p>
+                </div>
+            @endforelse
+        </div>
         <div class="col-4 ">
             {{-- Profile Overview --}}
             <div class="row align-items-center mb-5 bg-white shadow-sm rounded-3 py-3">

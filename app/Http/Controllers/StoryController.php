@@ -26,7 +26,7 @@ class StoryController extends Controller
 
     $this->story->user_id = Auth::user()->id;
     $this->story->story_image = 'data:image/' . $request->story_image->extension() . ';base64,' . base64_encode(file_get_contents($request->story_image));
-    $this->story->expires_at = now()->addMinutes(1);
+    $this->story->expires_at = now()->addMinutes(30);
     $this->story->save();
 
     return redirect()->route('index');
