@@ -42,7 +42,11 @@ class HomeController extends Controller
         $stories = Story::where('expires_at', '>', now())
         ->with('user')
         ->orderBy('id', 'asc')
-        ->get();
+        ->get()
+        ->filter(function ($story) {
+            return $story->user->isFollowed()
+                || $story->user->id === Auth::id();
+        });
 
         $home_stories = $stories->groupBy('user_id');
         
