@@ -145,6 +145,32 @@
         box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
         /* 軽く影をつけてボタンらしく */
     }
+/* ホバーで軽く浮き上がるエフェクト */
+.home-post-card,
+.suggestion-box,
+.row.align-items-center.bg-white.shadow-sm.rounded-3.py-3 {
+    transition: all 0.3s ease;
+}
+
+.home-post-card:hover,
+.suggestion-box:hover,
+.row.align-items-center.bg-white.shadow-sm.rounded-3.py-3:hover {
+    transform: translateY(-1.5px); /* 少しだけ上に浮かせる */
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.1); /* 少し控えめの影 */
+}
+/* ストーリーアイコンのホバー効果 */
+.story-item img,
+.story-item i {
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.story-item:hover img,
+.story-item:hover i {
+    transform: translateY(-2px) scale(1.05); /* 少し浮かせて少し拡大 */
+    box-shadow: 0 4px 12px rgba(0,0,0,0.15); /* 軽く影をつける */
+}
+
+
 </style>
 @section('content')
 
