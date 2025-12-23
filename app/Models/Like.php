@@ -15,6 +15,9 @@ class Like extends Model
     // 2. テーブルに created_at / updated_at がない場合はこれを false にする
     public $timestamps = false;
 
+    protected $primaryKey = ['user_id', 'post_id'];
+    public $incrementing = false;
+
     public function user()
     {
         return $this->belongsTo(User::class);
