@@ -146,29 +146,21 @@
         /* 軽く影をつけてボタンらしく */
     }
 /* ホバーで軽く浮き上がるエフェクト */
+/* 投稿カードのホバー */
 .home-post-card,
 .suggestion-box,
-.row.align-items-center.bg-white.shadow-sm.rounded-3.py-3 {
-    transition: all 0.3s ease;
+.row.align-items-center.bg-white.shadow-sm.rounded-3.py-3 { /* プロフィールボックス */
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
 .home-post-card:hover,
 .suggestion-box:hover,
 .row.align-items-center.bg-white.shadow-sm.rounded-3.py-3:hover {
-    transform: translateY(-1.5px); /* 少しだけ上に浮かせる */
-    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.1); /* 少し控えめの影 */
-}
-/* ストーリーアイコンのホバー効果 */
-.story-item img,
-.story-item i {
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    transform: translateY(-5px) scale(1.02); /* 少し大きく浮かせる */
+    box-shadow: 0 8px 20px rgba(0,0,0,0.15); /* 影を濃くして浮き感アップ */
 }
 
-.story-item:hover img,
-.story-item:hover i {
-    transform: translateY(-2px) scale(1.05); /* 少し浮かせて少し拡大 */
-    box-shadow: 0 4px 12px rgba(0,0,0,0.15); /* 軽く影をつける */
-}
+
 
 
 </style>
