@@ -44,7 +44,7 @@ class HomeController extends Controller
         ->orderBy('id', 'asc')
         ->get()
         ->filter(function ($story) {
-            return $story->user->isFollowed()
+            return $story->user->isFollowing(Auth::user())
                 || $story->user->id === Auth::id();
         });
 
