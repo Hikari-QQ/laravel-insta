@@ -19,37 +19,74 @@
             <button class="btn btn-sm shadow-none" data-bs-toggle="dropdown">
                 <i class="fa-solid fa-ellipsis"></i>
             </button>
-            <div class="dropdown-menu">
+
+            <div class="dropdown-menu piki-dropdown-menu">
                 @if (Auth::user()->id === $post->user->id)
-                    <a href="{{ route('post.edit', $post->id) }}" class="dropdown-item">
+                    <a href="{{ route('post.edit', $post->id) }}" class="piki-dropdown-item">
                         <i class="fa-regular fa-pen-to-square"></i> Edit
                     </a>
-                    <button class="dropdown-item text-danger" data-bs-toggle="modal"
+
+                    <button class="piki-dropdown-item" data-bs-toggle="modal"
                         data-bs-target="#delete-post-{{ $post->id }}">
                         <i class="fa-regular fa-trash-can"></i> Delete
                     </button>
-                    @include('users.posts.contents.modals.delete')
                 @else
                     <form action="{{ route('follow.destroy', $post->user->id) }}" method="post">
                         @csrf
                         @method('DELETE')
-                        <button type="submit" class="dropdown-item text-danger">Unfollow</button>
+                        <button type="submit" class="piki-dropdown-item">Unfollow</button>
                     </form>
                 @endif
             </div>
         </div>
+        @include('users.posts.contents.modals.delete')
         <style>
-    .avatar-lg-custom {
-        width: 40px;
-        height: 40px;
-        font-size: 40px; /* アイコン（fa-circle-user）用 */
-        object-fit: cover;
-    }
+            .avatar-lg-custom {
+                width: 40px;
+                height: 40px;
+                font-size: 40px;
+                /* アイコン（fa-circle-user）用 */
+                object-fit: cover;
+            }
 
-    .post-header-name {
-        color: #37353E !important;
-        font-weight: 500;
-    }
-</style>
+            .post-header-name {
+                color: #37353E !important;
+                font-weight: 500;
+            }
+
+            /* 追加するスタイル */
+            .piki-dropdown-menu {
+                background-color: #ffffff !important;
+                border-radius: 14px !important;
+                box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08) !important;
+                border: none !important;
+                padding: 8px 0 !important;
+            }
+
+            .piki-dropdown-item {
+                display: block;
+                width: 100%;
+                padding: 10px 20px;
+                font-size: 0.9rem;
+                color: #7a7a7a !important;
+                text-align: left;
+                text-decoration: none;
+                background: none;
+                border: none;
+                transition: all 0.2s ease;
+            }
+
+            .piki-dropdown-item:hover {
+                background-color: #FBEFEF !important;
+                /* 薄いピンク背景 */
+                color: #F08FB3 !important;
+                /* 濃いピンク文字 */
+            }
+
+            .piki-dropdown-item:hover i {
+                color: #F08FB3 !important;
+                /* アイコンもピンクに */
+            }
+        </style>
 
     </div>

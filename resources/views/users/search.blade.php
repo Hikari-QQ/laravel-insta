@@ -40,13 +40,14 @@
 
     /* Followボタン（水色） */
     .btn-follow {
-        background-color: var(--piki-bg-blue);
-        color: #4A4A4A;
+       background-color: #DFF4F8 !important; 
+       color: #37353E !important;    
         border: none;
         border-radius: 50px;
         padding: 5px 20px;
         transition: all 0.3s;
-    }
+    } 
+    
 
     .btn-follow:hover {
         background-color: #9cd4f8;

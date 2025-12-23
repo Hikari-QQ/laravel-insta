@@ -4,7 +4,6 @@
 
 @section('content')
     <style>
-        
         .show-card {
             background-color: #fff;
             border-radius: 15px;
@@ -93,8 +92,37 @@
             background: #E5D9F2;
             border-radius: 10px;
         }
-    
 
+        .piki-dropdown-menu {
+            background-color: #ffffff !important;
+            border-radius: 14px !important;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08) !important;
+            border: none !important;
+            padding: 8px 0 !important;
+            min-width: 120px !important;
+        }
+
+        .piki-dropdown-item {
+            display: block;
+            width: 100%;
+            padding: 10px 20px;
+            font-size: 0.9rem;
+            color: #7a7a7a !important;
+            text-align: left;
+            text-decoration: none;
+            background: none;
+            border: none;
+            transition: all 0.2s ease;
+        }
+
+        .piki-dropdown-item:hover {
+            background-color: #FBEFEF !important;
+            color: #F08FB3 !important;
+        }
+
+        .piki-dropdown-item:hover i {
+            color: #F08FB3 !important;
+        }
     </style>
 
     <div class="row show-card shadow-sm mx-auto">
@@ -120,16 +148,16 @@
                     <div class="col-auto">
                         @if (Auth::user()->id === $post->user->id)
                             <div class="dropdown">
-                                <button class="btn btn-sm shadow-none" data-bs-toggle="dropdown">
-                                    <i class="fa-solid fa-ellipsis" style="color: #bdbdbd;"></i>
+                                <button class="btn btn-sm shadow-none border-0 p-0" data-bs-toggle="dropdown">
+                                    <i class="fa-solid fa-ellipsis" style="color: #bdbdbd; font-size: 1.2rem;"></i>
                                 </button>
-                                <div class="dropdown-menu dropdown-menu-end">
-                                    <a href="{{ route('post.edit', $post->id) }}" class="dropdown-item">
-                                        <i class="fa-regular fa-pen-to-square"></i> Edit
+                                <div class="dropdown-menu dropdown-menu-end piki-dropdown-menu">
+                                    <a href="{{ route('post.edit', $post->id) }}" class="piki-dropdown-item">
+                                        <i class="fa-regular fa-pen-to-square me-2"></i>Edit
                                     </a>
-                                    <button class="dropdown-item text-danger" data-bs-toggle="modal"
+                                    <button type="button" class="piki-dropdown-item" data-bs-toggle="modal"
                                         data-bs-target="#delete-post-{{ $post->id }}">
-                                        <i class="fa-regular fa-trash-can"></i> Delete
+                                        <i class="fa-regular fa-trash-can me-2"></i>Delete
                                     </button>
                                 </div>
                                 @include('users.posts.contents.modals.delete')
@@ -154,9 +182,9 @@
 
             <div class="flex-grow-1 scroll-area p-3">
                 <div class="d-flex align-items-center mb-3">
-                   <div class="d-flex align-items-center">
-    @livewire('like-button', ['post' => $post], key('like-'.$post->id))
-</div>
+                    <div class="d-flex align-items-center">
+                        @livewire('like-button', ['post' => $post], key('like-'.$post->id))
+                    </div>
                     <div class="me-3">
                         <span class="like-count">{{ $post->likes->count() }}</span>
                     </div>
@@ -168,9 +196,8 @@
                                 </span>
                             @endforeach
                         @else
-                        <span class="category-badge">Uncategorized</span>
+                            <span class="category-badge">Uncategorized</span>
                         @endif
-
                     </div>
                 </div>
 
