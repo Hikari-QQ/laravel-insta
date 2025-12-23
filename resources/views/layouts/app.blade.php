@@ -316,6 +316,16 @@
             transform: translateY(-4px) scale(1.05);
             /* 少し大きくしながら浮かす */
         }
+        /* ナビ右上のプロフィール写真もホバーで浮かす */
+#user-toggle img {
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+#user-toggle:hover img {
+    transform: translateY(-4px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+}
+
     </style>
 </head>
 
