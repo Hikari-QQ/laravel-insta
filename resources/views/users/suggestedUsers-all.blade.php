@@ -64,6 +64,7 @@
         text-decoration: none;
         display: inline-block;
     }
+    
 
     .btn-follow:hover {
         /* ホバー時は少し濃い水色に */
@@ -93,6 +94,9 @@
     .user-row:last-child {
         border-bottom: none;
     }
+       .btn-follow-square { background-color: #DFF4F8 !important; color: #37353E !important; border: none !important; border-radius: 4px !important; font-weight: bold; font-size: 0.75rem; padding: 5px 15px !important; transition: 0.3s; 
+       }
+       
 </style>
 
 <div class="row justify-content-center">
@@ -120,7 +124,7 @@
                 <div class="col-auto">
                     <form action="{{ route('follow.store', $user->id) }}" method="post">
                         @csrf
-                        <button type="submit" class="btn btn-follow btn-sm fw-bold shadow-sm">Follow</button>
+                          <button type="submit" class="btn btn-follow-square">Follow</button>
                     </form>
                 </div>
             </div>

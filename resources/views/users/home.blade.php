@@ -103,6 +103,7 @@
         color: #37353E !important;
         transform: translateY(-1px);
         /* 軽く浮き上がる演出 */
+        
         box-shadow: 0 4px 8px rgba(191, 234, 242, 0.4);
     }
 
