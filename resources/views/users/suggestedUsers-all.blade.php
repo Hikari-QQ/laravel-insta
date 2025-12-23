@@ -4,111 +4,93 @@
 
 @section('content')
 <style>
-    /* 全体を白背景に固定 */
-    body, #app, main {
-        background-color: #FBEFEF !important;
-    }
-
-    /* 検索・おすすめコンテナ：真っ白なカードが浮いているデザイン */
     .search-container {
-        background-color: #ffffff;
-        border-radius: 30px;
-        padding: 40px;
-        box-shadow: 0 15px 40px rgba(183, 156, 156, 0.12);
-        margin-top: 40px;
+        background-color: rgba(255, 255, 255, 0.6);
+        border-radius: 20px;
+        padding: 30px;
+        backdrop-filter: blur(5px);
     }
 
-    /* ユーザー名：ご指定の #37353E に変更 */
+    .suggestion-heart {
+        width: 14px;
+        height: 14px;
+        fill: #BFEAF2;
+    }
+
     .user-name {
-        color: #37353E;
-        font-weight: 700;
+        font-weight: bold;
         text-decoration: none;
         font-size: 1.1rem;
-        transition: color 0.3s;
-    }
-
-    .user-name:hover {
-        color: #F08FB3; /* ホバー時はテーマカラーのピンクに */
     }
 
     .avatar-md {
-        width: 65px;
-        height: 65px;
+        width: 60px;
+        height: 60px;
         border-radius: 50%;
         object-fit: cover;
-        border: 3px solid #fff;
-        box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+        border: 2px solid #fff;
+        box-shadow: 0 2px 5px rgba(0,0,0,0.1);
     }
 
-    /* デフォルトのユーザーアイコン */
+    /* デフォルトのユーザーアイコンをピンクに変更 */
     .icom-md {
-        font-size: 65px;
-        color: #F08FB3; /* ピンク */
+        font-size: 60px;
+        color: #ff85a2; 
         opacity: 0.8;
     }
 
-    /* Followボタン：水色ベース × ピンク文字（他のボタンと統一） */
-    /* Followボタン：指定の黒っぽい文字色を適用 */
+    /* Followボタン（水色） */
     .btn-follow {
-        /* 背景色を #DFF4F8（RegisterのボタンやCreateのフォームと同じ水色）に設定 */
-        background-color: #DFF4F8 !important; 
-        
-        /* 文字色を指定の #37353E に固定 */
-        color: #37353E !important; 
-        
-        border: none !important;
+       background-color: #DFF4F8 !important; 
+       color: #37353E !important;    
+        border: none;
         border-radius: 50px;
-        padding: 8px 25px;
-        font-weight: 700;
+        padding: 5px 20px;
         transition: all 0.3s;
-        text-decoration: none;
-        display: inline-block;
-    }
+    } 
     
 
     .btn-follow:hover {
-        /* ホバー時は少し濃い水色に */
-        background-color: #BFEAF2 !important; 
-        color: #37353E !important;
-        transform: translateY(-2px);
-        box-shadow: 0 5px 15px rgba(191, 234, 242, 0.4);
+        background-color: #9cd4f8;
+        transform: translateY(-1px);
     }
 
-    /* タイトル部分 */
     .search-title {
-        color: var(--piki-gray-main);
-        font-weight: 800;
-        letter-spacing: 1px;
-        border-bottom: 3px dashed #BFEAF2; /* 水色の点線 */
+        color: #F08FB3;
+        font-weight: 500;
         display: inline-block;
-        padding-bottom: 8px;
+    } 
+    
+    .user-item {
+        padding: 8px 6px;
+        border-radius: 14px;
+        transition: background-color 0.2s ease;
     }
 
-    /* リストの区切り線 */
-    .user-row {
-        border-bottom: 1px solid #f8f1f1;
-        padding-bottom: 1.5rem;
-        margin-bottom: 1.5rem;
+    .user-item:hover {
+        background-color: #FBEFEF;
     }
 
-    .user-row:last-child {
-        border-bottom: none;
-    }
-       .btn-follow-square { background-color: #DFF4F8 !important; color: #37353E !important; border: none !important; border-radius: 4px !important; font-weight: bold; font-size: 0.75rem; padding: 5px 15px !important; transition: 0.3s; 
-       }
-       
 </style>
 
 <div class="row justify-content-center">
     <div class="col-6 search-container shadow-sm">
-        <div class="mb-5 text-center">
+        <div class="mb-3 text-center">
             <p class="h5 search-title pb-2">
-                Suggestion For You
+                <svg class="suggestion-heart" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 640">
+                    <path
+                        d="M305 151.1L320 171.8L335 151.1C360 116.5 400.2 96 442.9 96C516.4 96 576 155.6 576 229.1L576 231.7C576 343.9 436.1 474.2 363.1 529.9C350.7 539.3 335.5 544 320 544C304.5 544 289.2 539.4 276.9 529.9C203.9 474.2 64 343.9 64 231.7L64 229.1C64 155.6 123.6 96 197.1 96C239.8 96 280 116.5 305 151.1z" />
+                </svg>
+                @translate('Suggestion For You')
+                <svg class="suggestion-heart" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 640">
+                    <path
+                        d="M305 151.1L320 171.8L335 151.1C360 116.5 400.2 96 442.9 96C516.4 96 576 155.6 576 229.1L576 231.7C576 343.9 436.1 474.2 363.1 529.9C350.7 539.3 335.5 544 320 544C304.5 544 289.2 539.4 276.9 529.9C203.9 474.2 64 343.9 64 231.7L64 229.1C64 155.6 123.6 96 197.1 96C239.8 96 280 116.5 305 151.1z" />
+                </svg>
             </p>
         </div>
 
         @foreach ($suggested_users as $user)
-            <div class="row align-items-center mb-4 pb-3 border-bottom border-white">
+            <div class="row align-items-center mb-1 pb-3 border-bottom border-white user-item">
                 <div class="col-auto">
                     <a href="{{ route('profile.show', $user->id) }}">
                         @if ($user->avatar)
@@ -119,12 +101,12 @@
                     </a>
                 </div>
                 <div class="col ps-3 text-truncate">
-                    <a href="{{ route('profile.show', $user->id) }}" class="user-name">{{ $user->name }}</a>
+                    <a href="{{ route('profile.show', $user->id) }}" class="user-name text-dark">{{ $user->name }}</a>
                 </div>
                 <div class="col-auto">
                     <form action="{{ route('follow.store', $user->id) }}" method="post">
                         @csrf
-                          <button type="submit" class="btn btn-follow-square">Follow</button>
+                          <button type="submit" class="btn btn-follow btn-sm fw-bold shadow-sm">@translate('Follow')</button>
                     </form>
                 </div>
             </div>

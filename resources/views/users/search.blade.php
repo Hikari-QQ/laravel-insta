@@ -11,15 +11,16 @@
         backdrop-filter: blur(5px);
     }
 
+    .suggestion-heart {
+        width: 14px;
+        height: 14px;
+        fill: #BFEAF2;
+    }
+
     .user-name {
-        color: #C9B3E0;
         font-weight: bold;
         text-decoration: none;
         font-size: 1.1rem;
-    }
-
-    .user-name:hover {
-        color: #b399cc;
     }
 
     .avatar-md {
@@ -69,9 +70,8 @@
     }
 
     .search-title {
-        color: var(--piki-gray-main);
+        color: #F08FB3;
         font-weight: 500;
-        border-bottom: 2px dashed #FFD1E0;
         display: inline-block;
     }
 
@@ -85,18 +85,36 @@
         color: #ff85a2;
         opacity: 0.5;
     }
+
+    .user-item {
+        padding: 8px 6px;
+        border-radius: 14px;
+        transition: background-color 0.2s ease;
+    }
+
+    .user-item:hover {
+        background-color: #FBEFEF;
+    }
 </style>
 
 <div class="row justify-content-center">
     <div class="col-6 search-container shadow-sm">
-        <div class="mb-5 text-center">
+        <div class="mb-3 text-center">
             <p class="h5 search-title pb-2">
-                Search results for "<span class="search-word fw-bold">{{ $search }}</span>"
+                <svg class="suggestion-heart" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 640">
+                    <path
+                        d="M305 151.1L320 171.8L335 151.1C360 116.5 400.2 96 442.9 96C516.4 96 576 155.6 576 229.1L576 231.7C576 343.9 436.1 474.2 363.1 529.9C350.7 539.3 335.5 544 320 544C304.5 544 289.2 539.4 276.9 529.9C203.9 474.2 64 343.9 64 231.7L64 229.1C64 155.6 123.6 96 197.1 96C239.8 96 280 116.5 305 151.1z" />
+                </svg>
+                @translate('Search results for') "<span class="search-word fw-bold">{{ $search }}</span>"
+                <svg class="suggestion-heart" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 640">
+                    <path
+                        d="M305 151.1L320 171.8L335 151.1C360 116.5 400.2 96 442.9 96C516.4 96 576 155.6 576 229.1L576 231.7C576 343.9 436.1 474.2 363.1 529.9C350.7 539.3 335.5 544 320 544C304.5 544 289.2 539.4 276.9 529.9C203.9 474.2 64 343.9 64 231.7L64 229.1C64 155.6 123.6 96 197.1 96C239.8 96 280 116.5 305 151.1z" />
+                </svg>
             </p>
         </div>
 
         @forelse ($users as $user)
-            <div class="row align-items-center mb-4 pb-3 border-bottom border-white">
+            <div class="row align-items-center mb-1 pb-3 border-bottom border-white user-item">
                 <div class="col-auto">
                     <a href="{{ route('profile.show', $user->id) }}">
                         @if ($user->avatar)
@@ -107,7 +125,7 @@
                     </a>
                 </div>
                 <div class="col ps-3 text-truncate">
-                    <a href="{{ route('profile.show', $user->id) }}" class="user-name">{{ $user->name }}</a>
+                    <a href="{{ route('profile.show', $user->id) }}" class="user-name text-dark">{{ $user->name }}</a>
                     <p class="text-muted mb-0 xsmall">{{ $user->email }}</p>
                 </div>
                 <div class="col-auto">
@@ -116,12 +134,12 @@
                             <form action="{{ route('follow.destroy', $user->id) }}" method="post">
                                 @csrf
                                 @method('DELETE')
-                                <button type="submit" class="btn btn-following btn-sm fw-bold shadow-sm">Following</button>
+                                <button type="submit" class="btn btn-following btn-sm fw-bold shadow-sm">@translate('Following')</button>
                             </form>
                         @else
                             <form action="{{ route('follow.store', $user->id) }}" method="post">
                                 @csrf
-                                <button type="submit" class="btn btn-follow btn-sm fw-bold shadow-sm">Follow</button>
+                                <button type="submit" class="btn btn-follow btn-sm fw-bold shadow-sm">@translate('Follow')</button>
                             </form>
                         @endif
                     @endif
@@ -130,7 +148,7 @@
         @empty
             <div class="text-center py-5">
                 <i class="fa-solid fa-magnifying-glass mb-3 no-user-icon"></i>
-                <p class="lead text-muted">No users found.</p>
+                <p class="lead text-muted">@translate('No users found.')</p>
             </div>
         @endforelse
     </div>

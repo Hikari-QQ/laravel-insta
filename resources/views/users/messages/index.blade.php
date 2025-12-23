@@ -71,13 +71,12 @@
         /* ホバー時とアクティブ時の色 */
         .user-item:hover,
         .user-item.active {
-            background-color: rgba(201, 179, 224, 0.3) !important;
+            background-color: #FBEFEF !important;
             /* importantをつけてモーダルでも適用 */
         }
 
         /* --- 各パーツのデザイン --- */
         .user-name {
-            color: #C9B3E0;
             font-weight: bold;
             font-size: 1rem;
         }
@@ -158,6 +157,24 @@
             /* 右端に寄せる */
             box-shadow: 0 0 5px rgba(255, 133, 162, 0.5);
         }
+
+        /* タイトル装飾：下線なし・水色ハート */
+        .suggestion-title-text {
+            color: #F08FB3; /* ピンクの文字 */
+            font-weight: bold;
+            text-decoration: none !important; /* 下線を消去 */
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            margin-bottom: 25px;
+            font-size: 1.5rem;
+        }
+
+        /* ハートの色：水色 */
+        .icon-blue-light {
+            color: #BFEAF2;
+        }
     </style>
 
     <div class="container">
@@ -165,7 +182,11 @@
             <div class="user-list">
                 <div class="user-list-header d-flex justify-content-between align-items-center">
                     <div style="width: 1.4rem;"></div>
-                    <h6 class="mb-0 fw-bold" style="color: #ff85a2; border-bottom: 2px dashed #FFD1E0;">Messages</h6>
+                    <div class="suggestion-title-text">
+                        <i class="fa-solid fa-heart icon-blue-light"></i>
+                        <h6 class="mb-0 fw-bold" style="color: #F08FB3;">@translate('Messages')</h6>
+                        <i class="fa-solid fa-heart icon-blue-light"></i>
+                    </div>
                     <button type="button" class="btn p-0 border-0" data-bs-toggle="modal" data-bs-target="#newUserModal"
                         title="New Message">
                         <i class="fa-regular fa-square-plus"
@@ -185,7 +206,7 @@
                                 @endif
                             </div>
                             <div class="text-truncate flex-grow-1">
-                                <span class="user-name">{{ $friend->name }}</span>
+                                <span class="user-name text-dark">{{ $friend->name }}</span>
                             </div>
 
                             {{-- 未読がある場合のみドットを表示 --}}
@@ -213,7 +234,7 @@
                             <div class="h-100 d-flex flex-column align-items-center justify-content-center text-muted">
                                 <i class="fa-regular fa-paper-plane mb-3"
                                     style="font-size: 3rem; color: #ff85a2; opacity: 0.3;"></i>
-                                <p class="small">No messages yet</p>
+                                <p class="small">@translate('No messages yet')</p>
                             </div>
                         @endforelse
                     </div>
@@ -224,7 +245,7 @@
                             <input type="hidden" id="receiver_id" value="{{ $selected_user->id }}">
                             <input type="text" id="message-body" class="form-control border-0 rounded-pill me-2 shadow-sm px-3"
                                 placeholder="Add a message…♡" required autocomplete="off">
-                            <button type="submit" id="send-btn" class="btn btn-send shadow-sm fw-bold">Send</button>
+                            <button type="submit" id="send-btn" class="btn btn-send shadow-sm fw-bold">@translate('Send')</button>
                         </form>
                     </div>
                 @else
@@ -232,7 +253,7 @@
                         <div class="text-center">
                             <i class="fa-regular fa-paper-plane mb-3"
                                 style="font-size: 3.5rem; color: #ff85a2; opacity: 0.4;"></i>
-                            <p>Choose who to message</p>
+                            <p>@translate('Choose who to message')</p>
                         </div>
                     </div>
                 @endif
@@ -245,7 +266,7 @@
             <div class="modal-content"
                 style="border-radius: 20px; border: none; background-color: rgba(255, 255, 255, 0.95); backdrop-filter: blur(15px); overflow: hidden;">
                 <div class="modal-header border-bottom-0 pb-3 pt-3">
-                    <h5 class="modal-title fw-bold mx-auto" style="color: #C9B3E0; padding-left: 1.5rem;">New Message</h5>
+                    <h5 class="modal-title fw-bold mx-auto" style="color: #F08FB3; padding-left: 1.5rem;">@translate('New Message')</h5>
                     <button type="button" class="btn-close ms-0" data-bs-dismiss="modal"></button>
                 </div>
                 <div class="modal-body p-0">
