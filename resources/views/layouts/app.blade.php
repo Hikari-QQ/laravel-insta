@@ -292,6 +292,30 @@
         .create-item:hover i {
             color: #F08FB3 !important;
         }
+
+        /* ナビゲーションアイコンの共通ホバー設定 */
+        .navbar-nav .nav-item .nav-link i {
+            transition: all 0.3s ease;
+            /* 動きをなめらかにする */
+            display: inline-block;
+            /* 浮き上がる動きを有効にするために必要 */
+        }
+
+        .navbar-nav .nav-item .nav-link:hover i {
+            transform: translateY(-4px);
+            /* 4px分、上に浮き上がる */
+            text-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+            /* アイコンの下にふわっとした影をつける */
+            color: #ffb3c6 !important;
+            /* ホバー時に少しピンクっぽく光らせる（お好みで） */
+        }
+
+        /* プラスボタン（fa-circle-plus）専用の調整 */
+        .nav-item a.nav-link i.fa-circle-plus:hover {
+            background-color: #E0E0E0;
+            transform: translateY(-4px) scale(1.05);
+            /* 少し大きくしながら浮かす */
+        }
     </style>
 </head>
 
@@ -347,7 +371,7 @@
                                     <i class="fa-regular fa-paper-plane"></i>
 
                                     <span id="nav-unread-dot"
-                                        class="position-absolute translate-middle p-1 rounded-circle {{ (isset($global_unread_count) && $global_unread_count > 0) ? '' : 'd-none' }}"
+                                        class="position-absolute translate-middle p-1 rounded-circle {{ isset($global_unread_count) && $global_unread_count > 0 ? '' : 'd-none' }}"
                                         style="background-color: #ff85a2; top: 12px; left: 80%;">
                                         <span class="visually-hidden">New alerts</span>
                                     </span>
@@ -413,7 +437,8 @@
                                         <i class="fa-solid fa-right-from-bracket me-2"></i>{{ __('Logout') }}
                                     </a>
 
-                                    <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
+                                    <form id="logout-form" action="{{ route('logout') }}" method="POST"
+                                        class="d-none">
                                         @csrf
                                     </form>
                                 </div>
@@ -443,7 +468,7 @@
         </main>
     </div>
     <script>
-        document.addEventListener("DOMContentLoaded", function () {
+        document.addEventListener("DOMContentLoaded", function() {
             // 1. 背景のアニメーション（ハートと雲）
             const itemCount = 20;
             const itemClasses = ['heart', 'cloud'];
@@ -472,7 +497,7 @@
 
                 if (!btn || !menu) return;
 
-                btn.addEventListener('click', function (e) {
+                btn.addEventListener('click', function(e) {
                     e.stopPropagation();
                     // 他の開いているメニューを全部閉じる
                     document.querySelectorAll('.create-menu').forEach(m => {
@@ -496,7 +521,7 @@
             setupToggle('user-toggle', 'user-menu');
 
             // 4. 画面のどこかをクリックしたらメニューを閉じる
-            document.addEventListener('click', function () {
+            document.addEventListener('click', function() {
                 document.querySelectorAll('.create-menu').forEach(m => {
                     m.classList.remove('show');
                 });
@@ -504,7 +529,7 @@
 
             // 5. メニューの中（入力欄など）をクリックしても閉じないようにする
             document.querySelectorAll('.create-menu').forEach(m => {
-                m.addEventListener('click', function (e) {
+                m.addEventListener('click', function(e) {
                     e.stopPropagation();
                 });
             });
@@ -520,7 +545,7 @@
                     if (data.unread_count > 0) {
                         dot.classList.remove('d-none'); // 未読があれば表示
                     } else {
-                        dot.classList.add('d-none');    // 未読がなければ隠す
+                        dot.classList.add('d-none'); // 未読がなければ隠す
                     }
                 })
                 .catch(err => console.error("Error fetching unread count:", err));
