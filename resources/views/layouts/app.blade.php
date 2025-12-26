@@ -341,7 +341,7 @@
                                 d="M112 256C112 167.6 183.6 96 272 96C319.1 96 361.4 116.4 390.7 148.7C401.3 145.6 412.5 144 424 144C490.3 144 544 197.7 544 264C544 277.2 541.9 289.9 537.9 301.8C579.5 322.9 608 366.1 608 416C608 486.7 550.7 544 480 544L176 544C96.5 544 32 479.5 32 400C32 343.2 64.9 294.1 112.7 270.6C112.3 265.8 112 260.9 112 256z" />
                         </svg>
                         <span
-                            style="color:var(--piki-icon-purple); font-weight:500; font-size: 1.4rem;">{{ config('app.name') }}</span>
+                            style="color:var(--piki-icon-purple); font-weight:600; font-size: 1.4rem;">{{ config('app.name') }}</span>
                         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 640"
                             style="width:24px; height:24px; fill:var(--piki-logo-cloud); margin-left:8px;">
                             <path

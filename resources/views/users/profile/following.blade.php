@@ -63,7 +63,7 @@
                         </div>
                     </div>
                 @empty
-                    <p class="text-center text-muted mb-0 py-3">Not following anyone yet.</p>
+                    <p class="text-center text-muted mb-0 py-3">@translate('Not following anyone yet.')</p>
                 @endforelse
             </div>
         </div>

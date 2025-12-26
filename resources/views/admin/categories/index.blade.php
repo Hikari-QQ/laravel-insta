@@ -4,7 +4,7 @@
 
 @section('content')
     <div class="row">
-        <div class="col-7">
+        <div class="col-8">
             <form action="{{ route('admin.categories.store') }}" method="post">
                 @csrf
                 <div class="row mb-3">
@@ -13,7 +13,7 @@
                             placeholder="Add a category">
                     </div>
                     <div class="col">
-                        <button type="submit" class="btn btn-primary fw-bolder"><i class="fa-solid fa-plus fw-bolder"></i>
+                        <button type="submit" class="btn btn-primary fw-bolder text-white"><i class="fa-solid fa-plus fw-bolder"></i>
                             Add</button>
                     </div>
                 </div>

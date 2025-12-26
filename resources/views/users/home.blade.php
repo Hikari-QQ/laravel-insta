@@ -204,8 +204,8 @@
                 </div>
             @empty
                 <div class="home-post-card p-5 text-center">
-                    <h2 class="icon-pink">Share Photos</h2>
-                    <p class="text-secondary">When you share photos, they'll appear on your profile.</p>
+                    <h2 class="icon-pink">@translate('Share Photos')</h2>
+                    <p class="text-secondary">@translate('When you share photos, they\'ll appear on your profile.')</p>
                 </div>
             @endforelse
         </div>
@@ -268,7 +268,7 @@
                             <div class="col-auto d-flex align-items-center">
                                 <form action="{{ route('follow.store', $user->id) }}" method="post" class="m-0">
                                     @csrf
-                                    <button type="submit" class="follow-btn">@translate('Follow')</button>
+                                    <button type="submit" class="follow-btn">Follow</button>
                                 </form>
                             </div>
                         </div>
@@ -278,7 +278,7 @@
                         <div class="row">
                             <div class="col text-center mt-0 mb-0">
                                 <p class="text-muted small">
-                                    @translate('and ', count($suggested_users) - 5, ' others...')
+                                    @translate('and ') {{ count($suggested_users) - 5 }} @translate(' others')...
                                 </p>
                             </div>
                         </div>

@@ -244,8 +244,8 @@
                             @csrf
                             <input type="hidden" id="receiver_id" value="{{ $selected_user->id }}">
                             <input type="text" id="message-body" class="form-control border-0 rounded-pill me-2 shadow-sm px-3"
-                                placeholder="Add a message…♡" required autocomplete="off">
-                            <button type="submit" id="send-btn" class="btn btn-send shadow-sm fw-bold">@translate('Send')</button>
+                                placeholder="@translate('Add a message')…♡" required autocomplete="off">
+                            <button type="submit" id="send-btn" class="btn btn-send shadow-sm fw-bold">Send</button>
                         </form>
                     </div>
                 @else

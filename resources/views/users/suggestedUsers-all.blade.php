@@ -106,7 +106,7 @@
                 <div class="col-auto">
                     <form action="{{ route('follow.store', $user->id) }}" method="post">
                         @csrf
-                          <button type="submit" class="btn btn-follow btn-sm fw-bold shadow-sm">@translate('Follow')</button>
+                          <button type="submit" class="btn btn-follow btn-sm fw-bold shadow-sm">Follow</button>
                     </form>
                 </div>
             </div>

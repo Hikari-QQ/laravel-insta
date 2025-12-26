@@ -95,7 +95,7 @@
         <div class="col-md-6 col-lg-5 story-container shadow-sm">
             <h2 class="h4 mb-4 text-center fw-bold" style="color: #ff85a2;">
                 <i class="fa-solid fa-heart heart me-2"></i>
-                Create New Story
+                @translate('Create New Story')
                 <i class="fa-solid fa-heart heart ms-2"></i>
             </h2>
 
@@ -103,7 +103,7 @@
                 @csrf
                 
                 <div class="mb-4">
-                    <label for="story_image" class="form-label-cute text-center">Pick your favorite moment</label>
+                    <label for="story_image" class="form-label-cute text-center">@translate('Pick your favorite moment')</label>
                     <div class="file-input-wrapper">
                         <input class="form-control form-control-cute border-0 bg-transparent" type="file" id="story_image" name="story_image" required>
                         <div class="form-text mt-3" style="color: #a08f8f; font-size: 0.8rem;">
@@ -118,10 +118,10 @@
 
                 <div class="text-center d-grid gap-3">
                     <button type="submit" class="btn btn-post shadow-sm">
-                        <i class="fa-solid fa-paper-plane me-2"></i>Post My Story
+                        <i class="fa-solid fa-paper-plane me-2"></i>@translate(' Post My Story')
                     </button>
                     <a href="{{ url()->previous() }}" class="btn-cancel">
-                        <i class="fa-solid fa-arrow-left me-1"></i> Back to Feed
+                        <i class="fa-solid fa-arrow-left me-1"></i>@translate(' Back to Feed')
                     </a>
                 </div>
             </form>

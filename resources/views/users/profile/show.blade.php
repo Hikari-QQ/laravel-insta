@@ -97,7 +97,7 @@
             @endforeach
         </div>
     @else
-        <h3 class="text-center posts-title" style="margin-top: 100px;">☁️ No Posts Yet ☁️</h3>
+        <h3 class="text-center posts-title" style="margin-top: 100px;">☁️ @translate('No Posts Yet') ☁️</h3>
     @endif
 </div>
 

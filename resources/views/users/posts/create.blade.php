@@ -62,7 +62,6 @@
 
     .category-badge-label {
         font-size: 0.9rem;
-        color: ;
         cursor: pointer;
         font-weight: 500;
     }
@@ -100,7 +99,7 @@
         <div class="col-md-8 col-lg-7 create-container shadow-sm">
             <h2 class="h4 mb-4 text-center fw-bold" style="color: #ff85a2;">
                 <i class="fa-solid fa-heart heart me-2"></i>
-                Create New Post
+                @translate('Create New Post')
                 <i class="fa-solid fa-heart heart ms-2"></i>
             </h2>
 
@@ -110,7 +109,7 @@
                 {{-- Category Area --}}
                 <div class="mb-4">
                     <label class="form-label-cute">
-                        Category <span class="fw-light small text-muted">(up to 3)</span>
+                        @translate('Category ')<span class="fw-light small text-muted">(@translate('up to 3'))</span>
                     </label>
                     <div class="category-box">
                         @foreach ($all_categories as $category)
@@ -130,10 +129,10 @@
 
                 {{-- Description Area --}}
                 <div class="mb-4">
-                    <label for="description" class="form-label-cute">Description</label>
+                    <label for="description" class="form-label-cute">@translate('Description')</label>
                     <textarea name="description" id="description" rows="5" 
                         class="form-control form-control-cute"
-                        placeholder="What's on your mind?">{{ old('description') }}</textarea>
+                        placeholder="@translate('What\'s on your mind?')">{{ old('description') }}</textarea>
                     @error('description')
                         <div class="text-danger small mt-1">{{ $message }}</div>
                     @enderror
@@ -141,7 +140,7 @@
 
                 {{-- Image Area --}}
                 <div class="mb-5">
-                    <label for="image" class="form-label-cute">Image</label>
+                    <label for="image" class="form-label-cute">@translate('Image')</label>
                     <input type="file" name="image" id="image" class="form-control form-control-cute" aria-describedby="image-info">
                     <div class="image-info-text" id="image-info">
                         <i class="fa-solid fa-circle-info me-1" style="color: #DFF4F8;"></i>
@@ -155,7 +154,7 @@
                 {{-- Submit Button --}}
                 <div class="text-center">
                     <button type="submit" class="btn btn-post shadow-sm">
-                        <i class="fa-solid fa-paper-plane me-2"></i>Post
+                        <i class="fa-solid fa-paper-plane me-2"></i>@translate('Post')
                     </button>
                 </div>
             </form>

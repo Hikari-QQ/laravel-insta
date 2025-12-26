@@ -64,7 +64,7 @@
             <div class="col-auto p-2">
                 @if (Auth::user()->id === $user->id)
                     {{-- Edit Profile も Follow と同じ水色ボタンに変更 --}}
-                    <a href="{{ route('profile.edit') }}" class="btn btn-custom-square fw-bold">Edit Profile</a>
+                    <a href="{{ route('profile.edit') }}" class="btn btn-custom-square fw-bold">@translate('Edit Profile')</a>
                 @else
                     @if ($user->isFollowed())
                         <form action="{{ route('follow.destroy', $user->id) }}" method="post">
@@ -87,13 +87,21 @@
             <div class="col-auto">
                 <a href="{{ route('profile.show', $user->id) }}" class="text-decoration-none text-dark">
                     <strong style="color: #ff7fbb;">{{ $user->posts->count() }}</strong>
-                    @if ($user->posts->count() == 1) post @else posts @endif
+                    @if ($user->posts->count() == 1)
+                        post
+                    @else
+                        posts
+                    @endif
                 </a>
             </div>
             <div class="col-auto">
                 <a href="{{ route('profile.followers', $user->id) }}" class="text-decoration-none text-dark">
                     <strong style="color: #ff7fbb;">{{ $user->followers->count() }}</strong>
-                    @if ($user->followers->count() == 1) follower @else followers @endif
+                    @if ($user->followers->count() == 1)
+                        follower
+                    @else
+                        followers
+                    @endif
                 </a>
             </div>
             <div class="col-auto">
@@ -102,6 +110,6 @@
                 </a>
             </div>
         </div>
-        <p class="fw-bold">{{ $user->introduction }}</p>
+        <p class="fw-bold">@translate($user->introduction)</p>
     </div>
 </div>
