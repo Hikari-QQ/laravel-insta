@@ -105,7 +105,7 @@
                     <div class="text-center mb-5">
                         <h2 class="h4 page-title">
                             <i class="fa-solid fa-heart heart-blue me-2"></i>
-                            Update Profile
+                            @translate('Update Profile')
                             <i class="fa-solid fa-heart heart-blue ms-2"></i>
                         </h2>
                     </div>
@@ -122,7 +122,7 @@
                             @endif
                         </div>
                         <div class="col-md-7">
-                            <label for="avatar" class="cute-label">Change Photo</label>
+                            <label for="avatar" class="cute-label">@translate('Change Photo')</label>
                             <input type="file" name="avatar" id="avatar" class="form-control form-control-sm cute-input">
                             @error('avatar')
                                 <div class="text-danger small mt-1">{{ $message }}</div>
@@ -132,8 +132,8 @@
 
                     {{-- Name --}}
                     <div class="mb-4">
-                        <label for="name" class="cute-label">Name</label>
-                        <input type="text" name="name" id="name" class="form-control cute-input" value="{{ old('name', $user->name) }}" placeholder="Your cute name">
+                        <label for="name" class="cute-label">@translate('Name')</label>
+                        <input type="text" name="name" id="name" class="form-control cute-input" value="{{ old('name', $user->name) }}" placeholder="@translate('Your cute name')">
                         @error('name')
                             <div class="text-danger small mt-1">{{ $message }}</div>
                         @enderror
@@ -141,7 +141,7 @@
 
                     {{-- Email --}}
                     <div class="mb-4">
-                        <label for="email" class="cute-label">E-Mail Address</label>
+                        <label for="email" class="cute-label">@translate('E-Mail Address')</label>
                         <input type="text" name="email" id="email" class="form-control cute-input" value="{{ old('email', $user->email) }}" placeholder="name@example.com">
                         @error('email')
                             <div class="text-danger small mt-1">{{ $message }}</div>
@@ -150,8 +150,8 @@
 
                     {{-- Introduction --}}
                     <div class="mb-4">
-                        <label for="introduction" class="cute-label">Introduction</label>
-                        <textarea name="introduction" id="introduction" rows="4" class="form-control cute-input" placeholder="Tell us about yourself... 💖">{{ old('introduction', $user->introduction) }}</textarea>
+                        <label for="introduction" class="cute-label">@translate('Introduction')</label>
+                        <textarea name="introduction" id="introduction" rows="4" class="form-control cute-input" placeholder="@translate('Tell us about yourself')... 💖">{{ old('introduction', $user->introduction) }}</textarea>
                         @error('introduction')
                             <div class="text-danger small mt-1">{{ $message }}</div>
                         @enderror

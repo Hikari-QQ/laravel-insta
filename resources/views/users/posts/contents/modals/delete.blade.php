@@ -63,7 +63,7 @@
             </div>
 
             <div class="modal-body text-center px-4">
-                <p class="text-secondary mb-3">Are you sure you want to delete this post?</p>
+                <p class="text-secondary mb-3">@translate('Are you sure you want to delete this post?')</p>
                 
                 {{-- 写真全体が見えるコンテナ --}}
                 <div class="post-preview-container shadow-sm mb-3">

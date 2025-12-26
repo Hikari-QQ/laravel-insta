@@ -122,7 +122,7 @@
                         </div>
                     </div>
                 @empty
-                    <p class="text-center text-muted mb-0 py-3">No followers yet.</p>
+                    <p class="text-center text-muted mb-0 py-3">@translate('No followers yet.')</p>
                 @endforelse
             </div>
         </div>

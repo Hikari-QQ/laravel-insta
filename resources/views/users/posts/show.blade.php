@@ -143,7 +143,7 @@
         text-decoration: none;
         transition: color 0.2s ease;
     }
-//* コメント入力欄：フォーカス時にドロップダウンと同じ色 */
+/* コメント入力欄：フォーカス時にドロップダウンと同じ色 */
 .comment-input:focus {
     box-shadow: none;
     background-color: #ffffff; /* ドロップダウンと同じ背景色 */
@@ -162,6 +162,17 @@
 .comment-input:hover {
     background-color: #FBEFEF; /* 薄いピンクに変化 */
     transition: background-color 0.2s ease;
+}
+
+.category-badge {
+    background-color: #DFF4F8 !important;
+    /* 水色 */
+    color: #FF85A2 !important;
+    /* ピンク文字 */
+    font-weight: 500;
+    border-radius: 50px;
+    padding: 5px 12px;
+    font-size: 0.75rem;
 }
 
 </style>
@@ -222,24 +233,24 @@
         </div>
 
         <div class="flex-grow-1 scroll-area p-3">
-            <div class="d-flex align-items-center mb-3">
+            <div class="d-flex align-items-center mb-1">
                 <div class="d-flex align-items-center">
                     @livewire('like-button', ['post' => $post], key('like-'.$post->id))
                 </div>
-                <div class="ms-auto">
-                    @forelse ($post->categoryPost as $category_post)
-                        <span class="badge bg-secondary bg-opacity-10 text-secondary rounded-pill me-1">
-                            {{ $category_post->category->name }}
-                        </span>
-                    @empty
-                        <span class="badge bg-secondary bg-opacity-10 text-secondary rounded-pill">Uncategorized</span>
-                    @endforelse
-                </div>
+            </div>
+            <div class="ms-auto mb-2">
+                @forelse ($post->categoryPost as $category_post)
+                    <span class="category-badge me-1">
+                        {{ $category_post->category->name }}
+                    </span>
+                @empty
+                    <span class="category-badge">Uncategorized</span>
+                @endforelse
             </div>
 
             <div class="mb-3">
                 <a href="{{ route('profile.show', $post->user->id) }}" class="user-name me-2">{{ $post->user->name }}</a>
-                <span class="fw-light text-dark">{{ $post->description }}</span>
+                <span class="fw-light text-dark">@translate($post->description)</span>
                 <p class="text-uppercase text-muted xsmall mt-1 mb-0">{{ date('M d, Y', strtotime($post->created_at)) }}</p>
             </div>
 
@@ -251,7 +262,7 @@
                         <li class="list-group-item border-0 p-0 mb-3 bg-transparent">
                             <a href="{{ route('profile.show', $comment->user->id) }}"
                                 class="text-decoration-none text-dark fw-bold small">{{ $comment->user->name }}</a>
-                            <p class="d-inline fw-light small mb-1"> {{ $comment->body }}</p>
+                            <p class="d-inline fw-light small mb-1">@translate($comment->body)</p>
                             
                             <div class="xsmall d-flex align-items-center">
                                 <span class="text-muted">{{ date('M d, Y', strtotime($comment->created_at)) }}</span>
@@ -276,7 +287,7 @@
                 @csrf
                 <div class="position-relative">
                     <textarea name="comment_body{{ $post->id }}" rows="1" class="form-control form-control-sm comment-input pe-5"
-                        placeholder="Add a comment…♡">{{ old('comment_body' . $post->id) }}</textarea>
+                        placeholder="@translate('Add a comment')…♡">{{ old('comment_body' . $post->id) }}</textarea>
                     <button type="submit" class="btn btn-sm comment-send-btn position-absolute top-50 end-0 translate-middle-y pe-3">
                         <i class="fa-regular fa-paper-plane"></i>
                     </button>

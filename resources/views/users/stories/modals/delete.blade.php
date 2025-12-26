@@ -65,12 +65,12 @@
         <div class="modal-content cute-modal">
             <div class="modal-header border-0 justify-content-center">
                 <h3 class="h5 modal-title text-pink-strong">
-                    <i class="fa-solid fa-heart-crack me-2"></i>Delete Story
+                    <i class="fa-solid fa-heart-crack me-2"></i>@translate('Delete Story')
                 </h3>
             </div>
 
             <div class="modal-body text-center">
-                <p class="text-secondary mb-3">Do you want to delete?</p>
+                <p class="text-secondary mb-3">@translate('Do you want to delete?')</p>
                 <div class="story-preview-container">
                     <img src="{{ $story->story_image }}" alt="story id {{ $story->id }}" class="story-preview-img">
                 </div>

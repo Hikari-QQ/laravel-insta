@@ -134,12 +134,12 @@
                             <form action="{{ route('follow.destroy', $user->id) }}" method="post">
                                 @csrf
                                 @method('DELETE')
-                                <button type="submit" class="btn btn-following btn-sm fw-bold shadow-sm">@translate('Following')</button>
+                                <button type="submit" class="btn btn-following btn-sm fw-bold shadow-sm">Following</button>
                             </form>
                         @else
                             <form action="{{ route('follow.store', $user->id) }}" method="post">
                                 @csrf
-                                <button type="submit" class="btn btn-follow btn-sm fw-bold shadow-sm">@translate('Follow')</button>
+                                <button type="submit" class="btn btn-follow btn-sm fw-bold shadow-sm">Follow</button>
                             </form>
                         @endif
                     @endif

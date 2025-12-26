@@ -102,14 +102,14 @@
                         <h2 class="h4 page-title">
                             {{-- ハートに heart-blue クラスを適用 --}}
                             <i class="fa-solid fa-heart heart-blue me-2"></i>
-                            Edit Post
+                            @translate('Edit Post')
                             <i class="fa-solid fa-heart heart-blue ms-2"></i>
                         </h2>
                     </div>
 
                     {{-- Category --}}
                     <div class="mb-4">
-                        <label class="cute-label">Category <span class="text-muted small fw-normal">(up to 3)</span></label>
+                        <label class="cute-label">@translate('Category ')<span class="text-muted small fw-normal">(@translate('up to 3'))</span></label>
                         <div class="p-3 rounded" style="background: rgba(255,255,255,0.3);">
                             @foreach ($all_categories as $category)
                                 <div class="form-check form-check-inline">
@@ -126,9 +126,9 @@
 
                     {{-- Description --}}
                     <div class="mb-4">
-                        <label for="description" class="cute-label">Description</label>
+                        <label for="description" class="cute-label">@translate('Description')</label>
                         <textarea name="description" id="description" rows="5" class="form-control cute-input"
-                            placeholder="What's on your mind?">{{ old('description', $post->description) }}</textarea>
+                            placeholder="@translate('What\'s on your mind?')">{{ old('description', $post->description) }}</textarea>
                         @error('description')
                             <div class="text-danger small mt-1">{{ $message }}</div>
                         @enderror
@@ -137,11 +137,11 @@
                     {{-- Image --}}
                     <div class="row mb-5">
                         <div class="col-lg-6">
-                            <label class="cute-label">Current Image</label>
+                            <label class="cute-label">@translate('Current Image')</label>
                             <img src="{{ $post->image }}" alt="post id {{ $post->id }}" class="img-fluid current-post-img mb-3">
                         </div>
                         <div class="col-lg-6">
-                            <label for="image" class="cute-label">Upload New Image</label>
+                            <label for="image" class="cute-label">@translate('Upload New Image')</label>
                             <input type="file" name="image" id="image" class="form-control cute-input">
                             <div class="mt-2 small text-muted">
                                 <i class="fa-regular fa-image me-1"></i> jpeg, jpg, png, gif (Max 1MB)

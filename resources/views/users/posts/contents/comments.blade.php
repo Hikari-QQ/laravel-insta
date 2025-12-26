@@ -74,7 +74,7 @@
                 <li class="list-group item border-0 p-0 mb-2">
                     <a href="{{ route('profile.show', $comment->user->id) }}"
                         class="text-decoration-none text-dark fw-bold">{{ $comment->user->name }}</a>
-                    <p class="d-inline fw-light">{{ $comment->body }}</p>
+                    <p class="d-inline fw-light">@translate($comment->body)</p>
 
                     <form action="{{ route('comment.destroy', $comment->id) }}" method="post">
                         @csrf
@@ -92,9 +92,9 @@
                 </li>
             @endforeach
             @if ($post->comments->count() > 3)
-                <li class="list-group-item border-0 px-0 pt-0">
-                    <a href="{{ route('post.show', $post->id) }}" class="text-decoration-none small">View all
-                        {{ $post->comments->count() }} comments</a>
+                <li class="list-group-item border-0 px-0 pt-0 bg-white">
+                    <a href="{{ route('post.show', $post->id) }}" class="text-decoration-none small">
+                        @translate('View all '){{ $post->comments->count() }} @translate(' comments...')</a>
                 </li>
             @endif
         </ul>
@@ -105,7 +105,7 @@
 
         <div class="position-relative">
             <textarea name="comment_body{{ $post->id }}" rows="1" class="form-control form-control-sm comment-input pe-5"
-                placeholder="Add a comment…♡">{{ old('comment_body' . $post->id) }}</textarea>
+                placeholder="@translate('Add a comment')…♡">{{ old('comment_body' . $post->id) }}</textarea>
 
             <button type="submit" class="btn btn-sm comment-send-btn position-absolute top-50 end-0 translate-middle-y"
                 title="Post">
