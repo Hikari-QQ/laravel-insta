@@ -17,7 +17,6 @@
             --piki-gray-soft: #9a9a9a;
             --piki-gray-light: #bdbdbd;
             --piki-bg-pink: #FBEFEF;
-            --piki-bg-header: #FFD1E0;
             --piki-bg-blue: #AEDEFC;
             --piki-bg-purple: #E5D9F2;
             --piki-item-blue: #C2E2FA;
@@ -113,7 +112,7 @@
         .nav-item a.nav-link i,
         .nav-item button.nav-link i {
             color: var(--piki-icon-purple) !important;
-            font-size: 1.3rem;
+            font-size: 1.5rem;
             width: 24px;
             text-align: center;
         }
@@ -122,7 +121,7 @@
             background-color: #F0F0F0;
             border-radius: 50%;
             padding: 4px;
-            font-size: 1.1rem;
+            font-size: 1.3rem;
         }
 
         .nav-item a.nav-link i.fa-circle-plus:hover {
@@ -130,8 +129,16 @@
         }
 
         .navbar {
-            background-color: var(--piki-bg-header);
+            background-color: rgba(245,190,209, 0.6);
             transition: background-color 0.3s ease;
+            background-image: radial-gradient(rgba(255, 255, 255, 0.3) 15%, transparent 16%),
+                                radial-gradient(rgba(255, 255, 255, 0.3) 15%, transparent 16%);
+            background-size: 40px 40px; /* ドットの間隔を広くして、ゆったりさせました */
+            background-position: 0 0, 20px 20px;
+            text-shadow: 0 0 5px rgba(255, 255, 255, 0.9);
+            backdrop-filter: blur(10px); /* 背後をぼかす */
+    -webkit-backdrop-filter: blur(10px);
+  
         }
 
         .navbar .navbar-brand h1 {
@@ -341,7 +348,7 @@
                                 d="M112 256C112 167.6 183.6 96 272 96C319.1 96 361.4 116.4 390.7 148.7C401.3 145.6 412.5 144 424 144C490.3 144 544 197.7 544 264C544 277.2 541.9 289.9 537.9 301.8C579.5 322.9 608 366.1 608 416C608 486.7 550.7 544 480 544L176 544C96.5 544 32 479.5 32 400C32 343.2 64.9 294.1 112.7 270.6C112.3 265.8 112 260.9 112 256z" />
                         </svg>
                         <span
-                            style="color:var(--piki-icon-purple); font-weight:600; font-size: 1.4rem;">{{ config('app.name') }}</span>
+                            style="color:var(--piki-icon-purple); font-weight:600; font-size: 1.6rem;">{{ config('app.name') }}</span>
                         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 640"
                             style="width:24px; height:24px; fill:var(--piki-logo-cloud); margin-left:8px;">
                             <path
@@ -425,7 +432,7 @@
                                     style="background:none; border:none; display: flex; align-items: center;">
                                     @if (Auth::user()->avatar)
                                         <img src="{{ Auth::user()->avatar }}" class="rounded-circle"
-                                            style="width:30px; height:30px; object-fit:cover;">
+                                            style="width:35px; height:35px; object-fit:cover;">
                                     @else
                                         <i class="fa-solid fa-circle-user" style="color: var(--piki-icon-purple);"></i>
                                     @endif
