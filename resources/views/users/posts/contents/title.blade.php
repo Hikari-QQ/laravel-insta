@@ -39,7 +39,6 @@
                 @endif
             </div>
         </div>
-        @include('users.posts.contents.modals.delete')
         <style>
             .avatar-lg-custom {
                 width: 40px;
