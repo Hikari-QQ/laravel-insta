@@ -202,6 +202,7 @@
                     @include('users.posts.contents.title')
                     @include('users.posts.contents.body')
                 </div>
+                    @include('users.posts.contents.modals.delete')
             @empty
                 <div class="home-post-card p-5 text-center">
                     <h2 class="icon-pink">@translate('Share Photos')</h2>
